@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pour toi</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    background: #fdf8f5;
+    color: #2c2419;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .screen { display: none; width: 100%; max-width: 420px; padding: 2.5rem 2rem; min-height: 100vh; flex-direction: column; justify-content: center; }
+  .screen.active { display: flex; }
+  h1 { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 400; line-height: 1.3; color: #2c2419; margin-bottom: 1.2rem; }
+  h2 { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 400; font-style: italic; color: #8b5e3c; margin-bottom: 0.5rem; }
+  .step-num { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: #b8956a; margin-bottom: 1.5rem; }
+  p { font-size: 1rem; line-height: 1.75; color: #4a3728; margin-bottom: 1.2rem; }
+  .divider { width: 40px; height: 1px; background: #d4a876; margin: 1.5rem 0; }
+  .hint-box { background: #fff9f4; border: 1px solid #e8d5be; border-radius: 12px; padding: 1.2rem 1.4rem; margin: 1.5rem 0; }
+  .hint-box .hint-label { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: #b8956a; margin-bottom: 0.6rem; }
+  .hint-box p { margin-bottom: 0; font-style: italic; color: #6b4c35; font-size: 0.95rem; }
+  .input-group { margin: 1.5rem 0; }
+  .input-group label { display: block; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: #b8956a; margin-bottom: 0.6rem; }
+  .input-group input {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    border: 1px solid #ddd0c0;
+    border-radius: 8px;
+    background: #fff;
+    font-family: 'Lato', sans-serif;
+    font-size: 1rem;
+    color: #2c2419;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .input-group input:focus { border-color: #b8956a; }
+  .btn {
+    display: block;
+    width: 100%;
+    padding: 1rem;
+    background: #2c2419;
+    color: #fdf8f5;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-top: 0.5rem;
+  }
+  .btn:hover { background: #4a3728; }
+  .error { color: #c0392b; font-size: 0.85rem; margin-top: 0.6rem; display: none; }
+  .progress { display: flex; gap: 6px; margin-bottom: 2rem; }
+  .progress-dot { width: 6px; height: 6px; border-radius: 50%; background: #ddd0c0; }
+  .progress-dot.done { background: #b8956a; }
+  .progress-dot.current { background: #2c2419; }
+  .arrival { text-align: center; padding: 3rem 2rem; }
+  .arrival-heart { font-size: 3rem; margin-bottom: 1.5rem; display: block; }
+  .arrival h1 { font-size: 2.2rem; }
+  .arrival p { font-size: 1.05rem; }
+</style>
+</head>
+<body>
+
+<!-- ÉCRAN 0 : Accueil -->
+<div class="screen active" id="screen-0">
+  <div class="step-num">Pour toi, rien que pour toi</div>
+  <h1>Un chemin semé de nos souvenirs t'attend.</h1>
+  <div class="divider"></div>
+  <p>Aujourd'hui, je t'emmène faire un voyage dans notre histoire. Chaque lieu sur ta route cache un indice — et au bout du chemin, je serai là.</p>
+  <p>Suis les instructions, entre le mot-clé trouvé sur place à chaque étape, et avance pas à pas.</p>
+  <div class="hint-box">
+    <div class="hint-label">Première destination</div>
+    <p>Rends-toi à l'endroit où tout a vraiment commencé. Là où tu venais me rejoindre, là où on a appris à se connaître — ce lieu que tu avais baptisé d'un drôle de nom.</p>
+  </div>
+  <button class="btn" onclick="nextScreen(0)">Je suis prête →</button>
+</div>
+
+<!-- ÉTAPE 1 : La cure (Place de la Réunion) -->
+<div class="screen" id="screen-1">
+  <div class="progress" id="prog-1"></div>
+  <div class="step-num">Étape 1 sur 5</div>
+  <h2>La cure</h2>
+  <h1>Place de la Réunion</h1>
+  <div class="divider"></div>
+  <p>Ce petit appartement qui a été le théâtre de nos premiers instants. Tu y venais si souvent qu'on avait trouvé ce nom un peu absurde, devenu le nôtre.</p>
+  <p>C'est ici qu'on a construit les premières briques de quelque chose de grand.</p>
+  <div class="hint-box">
+    <div class="hint-label">Indice pour la prochaine étape</div>
+    <p>Après la cure, le chapitre suivant s'est écrit chez toi. L'adresse de ton ancien appartement — celui où j'ai fini par poser mes valises aussi.</p>
+  </div>
+  <div class="input-group">
+    <label>Mot-clé trouvé sur place</label>
+    <input type="text" id="input-1" placeholder="Entre le mot-clé…" autocomplete="off" />
+    <div class="error" id="err-1">Ce n'est pas le bon mot-clé, cherche encore...</div>
+  </div>
+  <button class="btn" onclick="validate(1, 'CURE')">Continuer →</button>
+</div>
+
+<!-- ÉTAPE 2 : Faubourg Poissonnière -->
+<div class="screen" id="screen-2">
+  <div class="progress" id="prog-2"></div>
+  <div class="step-num">Étape 2 sur 5</div>
+  <h2>Ton appartement</h2>
+  <h1>40 rue du Faubourg Poissonnière</h1>
+  <div class="divider"></div>
+  <p>Ton appartement, devenu le nôtre. Un endroit où on a appris à vivre ensemble, à partager l'espace, le quotidien, les matins.</p>
+  <p>C'est ici que "chez toi" est devenu "chez nous" — avant qu'on trouve notre vrai chez-nous à tous les deux.</p>
+  <div class="hint-box">
+    <div class="hint-label">Indice pour la prochaine étape</div>
+    <p>Souviens-toi du tout premier restaurant qu'on a fait ensemble. Le soir où on a commandé et discuté comme si on se connaissait depuis toujours.</p>
+  </div>
+  <div class="input-group">
+    <label>Mot-clé trouvé sur place</label>
+    <input type="text" id="input-2" placeholder="Entre le mot-clé…" autocomplete="off" />
+    <div class="error" id="err-2">Ce n'est pas le bon mot-clé, cherche encore...</div>
+  </div>
+  <button class="btn" onclick="validate(2, 'POISSONNIERE')">Continuer →</button>
+</div>
+
+<!-- ÉTAPE 3 : Bistro Père -->
+<div class="screen" id="screen-3">
+  <div class="progress" id="prog-3"></div>
+  <div class="step-num">Étape 3 sur 5</div>
+  <h2>Le premier dîner</h2>
+  <h1>Bistro Père</h1>
+  <div class="divider"></div>
+  <p>Notre premier restaurant. La première fois qu'on s'est retrouvés autour d'une table, face à face, à faire semblant de lire le menu alors qu'on ne regardait que l'autre.</p>
+  <p>Ce soir-là, quelque chose s'est mis en place. Définitivement.</p>
+  <div class="hint-box">
+    <div class="hint-label">Indice pour la prochaine étape</div>
+    <p>Un soir de semaine, à l'improviste, tu m'as rejoint tard dans un bar. Pas n'importe quel bar — celui dont le nom évoque la nuit, la musique, et un certain sens de l'urgence.</p>
+  </div>
+  <div class="input-group">
+    <label>Mot-clé trouvé sur place</label>
+    <input type="text" id="input-3" placeholder="Entre le mot-clé…" autocomplete="off" />
+    <div class="error" id="err-3">Ce n'est pas le bon mot-clé, cherche encore...</div>
+  </div>
+  <button class="btn" onclick="validate(3, 'BISTRO')">Continuer →</button>
+</div>
+
+<!-- ÉTAPE 4 : L'Autobus -->
+<div class="screen" id="screen-4">
+  <div class="progress" id="prog-4"></div>
+  <div class="step-num">Étape 4 sur 5</div>
+  <h2>L'improviste</h2>
+  <h1>L'Autobus</h1>
+  <div class="divider"></div>
+  <p>C'était un soir de semaine, sans prévenir, et pourtant tu es venue. Ce genre de soirée qui n'était censée être rien de particulier — et qui devient un souvenir qu'on ne veut plus lâcher.</p>
+  <p>L'improviste, c'est souvent là que les plus belles choses arrivent.</p>
+  <div class="hint-box">
+    <div class="hint-label">Indice pour la prochaine étape</div>
+    <p>Place de la République. Devant une grande enseigne de sport. On s'y était donné rendez-vous au tout début, et l'adresse est restée gravée.</p>
+  </div>
+  <div class="input-group">
+    <label>Mot-clé trouvé sur place</label>
+    <input type="text" id="input-4" placeholder="Entre le mot-clé…" autocomplete="off" />
+    <div class="error" id="err-4">Ce n'est pas le bon mot-clé, cherche encore...</div>
+  </div>
+  <button class="btn" onclick="validate(4, 'AUTOBUS')">Continuer →</button>
+</div>
+
+<!-- ÉTAPE 5 : Intersport République -->
+<div class="screen" id="screen-5">
+  <div class="progress" id="prog-5"></div>
+  <div class="step-num">Étape 5 sur 5</div>
+  <h2>Le rendez-vous</h2>
+  <h1>Intersport, Place de la République</h1>
+  <div class="divider"></div>
+  <p>Un point de rendez-vous un peu improbable pour une rencontre qui ne l'était pas. Tu t'en souviens ? On s'était retrouvés là, et ensuite on était allés boire un café quelque part dans les environs.</p>
+  <p>Simple. Parfait.</p>
+  <div class="hint-box">
+    <div class="hint-label">Dernière destination</div>
+    <p>La nuit de l'Autobus, avant de rentrer, on avait traîné dans un passage discret. Un passage avec un nom qui invite au jeu. C'est là que je t'attends.</p>
+  </div>
+  <div class="input-group">
+    <label>Mot-clé trouvé sur place</label>
+    <input type="text" id="input-5" placeholder="Entre le mot-clé…" autocomplete="off" />
+    <div class="error" id="err-5">Ce n'est pas le bon mot-clé, cherche encore...</div>
+  </div>
+  <button class="btn" onclick="validate(5, 'REPUBLIQUE')">Je suis prête pour la suite →</button>
+</div>
+
+<!-- ÉCRAN ARRIVÉE -->
+<div class="screen arrival" id="screen-final">
+  <span class="arrival-heart">♡</span>
+  <h1>Tu y es presque.</h1>
+  <div class="divider" style="margin: 1.5rem auto;"></div>
+  <p>Passage du Jeu de Boules.</p>
+  <p>Tu te souviens de ce soir-là ? Ce passage, ce baiser. Ce moment qu'on portait tous les deux sans se le dire.</p>
+  <p style="font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.15rem; color: #8b5e3c;">Je t'attends.</p>
+</div>
+
+<script>
+const TOTAL = 5;
+
+function buildProgress(screenNum) {
+  const el = document.getElementById('prog-' + screenNum);
+  if (!el) return;
+  let html = '';
+  for (let i = 1; i <= TOTAL; i++) {
+    let cls = 'progress-dot';
+    if (i < screenNum) cls += ' done';
+    else if (i === screenNum) cls += ' current';
+    html += '<div class="' + cls + '"></div>';
+  }
+  el.innerHTML = html;
+}
+
+function nextScreen(current) {
+  document.getElementById('screen-' + current).classList.remove('active');
+  const next = document.getElementById('screen-' + (current + 1));
+  next.classList.add('active');
+  buildProgress(current + 1);
+  window.scrollTo(0, 0);
+}
+
+function validate(step, answer) {
+  const input = document.getElementById('input-' + step);
+  const err = document.getElementById('err-' + step);
+  const val = input.value.trim().toUpperCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  if (val === answer) {
+    err.style.display = 'none';
+    if (step === TOTAL) {
+      document.getElementById('screen-' + step).classList.remove('active');
+      document.getElementById('screen-final').classList.add('active');
+    } else {
+      nextScreen(step);
+    }
+  } else {
+    err.style.display = 'block';
+    input.value = '';
+    input.focus();
+  }
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') {
+    const active = document.querySelector('.screen.active');
+    const btn = active ? active.querySelector('.btn') : null;
+    if (btn) btn.click();
+  }
+});
+</script>
+
+</body>
+</html>
