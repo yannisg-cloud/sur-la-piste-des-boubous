@@ -20,6 +20,8 @@
   --brown-mid: #7a4020;
   --text: #3d2010;
   --text-muted: #8a6050;
+  --green: #3a6020;
+  --green-light: #e8f5e0;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html, body { min-height: 100vh; }
@@ -32,396 +34,171 @@ body {
   align-items: center;
   justify-content: center;
   padding: 0;
-  position: relative;
   overflow-x: hidden;
+  position: relative;
 }
-
-/* ── Background decoration ── */
 body::before {
   content: '';
-  position: fixed;
-  inset: 0;
+  position: fixed; inset: 0;
   background:
-    radial-gradient(ellipse 60% 40% at 10% 10%, #fde8e833 0%, transparent 60%),
-    radial-gradient(ellipse 50% 50% at 90% 80%, #f5e0d333 0%, transparent 60%),
-    radial-gradient(ellipse 40% 30% at 50% 50%, #fdf0d820 0%, transparent 70%);
-  pointer-events: none;
-  z-index: 0;
+    radial-gradient(ellipse 60% 40% at 10% 10%, #fde8e822 0%, transparent 60%),
+    radial-gradient(ellipse 50% 50% at 90% 80%, #f5e0d322 0%, transparent 60%);
+  pointer-events: none; z-index: 0;
 }
+.deco { position: fixed; border-radius: 50%; pointer-events: none; z-index: 0; opacity: 0.18; }
+.deco-1 { width: 200px; height: 200px; background: var(--rose-light); top: -70px; right: -70px; }
+.deco-2 { width: 140px; height: 140px; background: var(--terra-light); bottom: 30px; left: -50px; }
+.deco-3 { width: 70px; height: 70px; background: var(--gold-light); bottom: 180px; right: 16px; }
 
 /* ── Screens ── */
 .screen {
-  display: none;
-  width: 100%;
-  max-width: 440px;
+  display: none; width: 100%; max-width: 440px;
   padding: 2.5rem 2rem 3rem;
   min-height: 100svh;
-  flex-direction: column;
-  justify-content: center;
-  position: relative;
-  z-index: 1;
+  flex-direction: column; justify-content: center;
+  position: relative; z-index: 1;
 }
 .screen.active { display: flex; }
 
-/* ── Boubou mascot ── */
-.boubous {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin-bottom: 2rem;
-}
-.boubou {
-  width: 32px; height: 32px;
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 14px;
-  font-weight: 500;
-  font-family: 'Fraunces', serif;
-  flex-shrink: 0;
-}
-.boubou-1 { background: var(--rose); color: #fff; }
-.boubou-2 { background: var(--terra-light); color: var(--terra); border: 2px solid var(--terra); }
-.boubou-heart {
-  font-size: 13px;
-  color: var(--rose-deep);
-  animation: heartbeat 1.8s ease-in-out infinite;
-}
-@keyframes heartbeat {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.25); }
-}
-.boubou-label {
-  font-size: 0.62rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  margin-left: 4px;
-}
+/* ── Mascotte ── */
+.boubous { display: flex; align-items: center; gap: 6px; margin-bottom: 2rem; }
+.bb { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; font-family: 'Fraunces', serif; flex-shrink: 0; }
+.bb1 { background: var(--rose); color: #fff; }
+.bb2 { background: var(--terra-light); color: var(--terra); border: 2px solid var(--terra); }
+.bb-heart { font-size: 13px; color: var(--rose-deep); animation: hb 1.8s ease-in-out infinite; }
+.bb-label { font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-muted); margin-left: 4px; }
+@keyframes hb { 0%,100%{transform:scale(1)} 50%{transform:scale(1.3)} }
 
-/* ── Typography ── */
-h1 {
-  font-family: 'Fraunces', serif;
-  font-size: 2.1rem;
-  font-weight: 600;
-  line-height: 1.2;
-  color: var(--brown);
-  margin-bottom: 1rem;
-}
-h1 em {
-  font-style: italic;
-  color: var(--terra);
-}
-h2 {
-  font-family: 'Fraunces', serif;
-  font-size: 1.4rem;
-  font-weight: 400;
-  font-style: italic;
-  color: var(--terra);
-  margin-bottom: 0.5rem;
-}
-p {
-  font-size: 1rem;
-  line-height: 1.75;
-  color: var(--text-muted);
-  margin-bottom: 1rem;
-}
-.step-label {
-  font-size: 0.65rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  margin-bottom: 1.5rem;
-}
-
-/* ── Phase badges ── */
-.phase-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 0.68rem;
-  font-weight: 500;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  padding: 0.35rem 0.8rem;
-  border-radius: 20px;
-  margin-bottom: 1.2rem;
-}
-.badge-guess { background: var(--gold-light); color: var(--brown-mid); border: 1px solid #e8c878; }
-.badge-onsite { background: #e8f5e0; color: #3a6020; border: 1px solid #b8d898; }
+/* ── Typo ── */
+h1 { font-family: 'Fraunces', serif; font-size: 2rem; font-weight: 600; line-height: 1.2; color: var(--brown); margin-bottom: 1rem; }
+h1 em { font-style: italic; color: var(--terra); }
+h2 { font-family: 'Fraunces', serif; font-size: 1.35rem; font-weight: 400; font-style: italic; color: var(--terra); margin-bottom: 0.6rem; }
+p { font-size: 0.97rem; line-height: 1.75; color: var(--text-muted); margin-bottom: 1rem; }
+.step-lbl { font-size: 0.62rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 1.4rem; }
 
 /* ── Progress ── */
-.progress {
-  display: flex;
-  align-items: center;
-  gap: 0;
-  margin-bottom: 2rem;
-}
-.p-dot {
-  width: 10px; height: 10px;
-  border-radius: 50%;
-  background: #e8d0c0;
-  transition: all 0.4s;
-  flex-shrink: 0;
-}
-.p-dot.done { background: var(--gold); }
-.p-dot.current {
-  background: var(--terra);
-  box-shadow: 0 0 0 3px var(--terra-light);
-  width: 12px; height: 12px;
-}
-.p-line { flex: 1; height: 2px; background: #e8d0c0; margin: 0 3px; }
-.p-line.done { background: var(--gold); }
+.progress { display: flex; align-items: center; gap: 0; margin-bottom: 2rem; }
+.pd { width: 10px; height: 10px; border-radius: 50%; background: #e8d0c0; transition: all 0.4s; flex-shrink: 0; }
+.pd.done { background: var(--gold); }
+.pd.current { background: var(--terra); box-shadow: 0 0 0 3px var(--terra-light); width: 13px; height: 13px; }
+.pl { flex: 1; height: 2px; background: #e8d0c0; margin: 0 3px; }
+.pl.done { background: var(--gold); }
 
 /* ── Cards ── */
 .card {
-  background: var(--warm-white);
-  border-radius: 18px;
-  padding: 1.4rem 1.5rem;
-  margin: 1.2rem 0;
-  border: 1px solid #f0ddd0;
-  position: relative;
-  overflow: hidden;
+  background: var(--warm-white); border-radius: 16px;
+  padding: 1.3rem 1.4rem; margin: 1rem 0;
+  border: 1px solid #f0ddd0; position: relative; overflow: hidden;
 }
-.card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, var(--rose), var(--terra), var(--gold));
-  border-radius: 18px 18px 0 0;
-}
-.card-label {
-  font-size: 0.6rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--terra);
-  margin-bottom: 0.6rem;
-  font-weight: 500;
-}
-.card p { margin-bottom: 0; color: var(--text); font-size: 0.97rem; line-height: 1.65; }
+.card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--rose), var(--terra), var(--gold)); }
+.card.green::before { background: linear-gradient(90deg, #8bc34a, #4caf50, #66bb6a); }
+.card-lbl { font-size: 0.58rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--terra); margin-bottom: 0.6rem; font-weight: 500; }
+.card.green .card-lbl { color: var(--green); }
+.card p { margin-bottom: 0; color: var(--text); font-size: 0.95rem; line-height: 1.65; }
 
-.card-onsite::before {
-  background: linear-gradient(90deg, #8bc34a, #4caf50, #66bb6a);
-}
-.card-onsite .card-label { color: #3a6020; }
+/* ── Badge ── */
+.badge { display: inline-flex; align-items: center; gap: 5px; font-size: 0.67rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.3rem 0.75rem; border-radius: 20px; margin-bottom: 1.1rem; }
+.badge-gold { background: var(--gold-light); color: var(--brown-mid); border: 1px solid #e0c070; }
+.badge-green { background: var(--green-light); color: var(--green); border: 1px solid #b0d890; }
 
 /* ── Input ── */
-.input-wrap { margin: 1.2rem 0 0.4rem; }
-.input-wrap label {
-  display: block;
-  font-size: 0.65rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  margin-bottom: 0.6rem;
-  font-weight: 500;
-}
-.input-wrap input {
-  width: 100%;
-  padding: 0.95rem 1.1rem;
-  border: 2px solid #e8d0c0;
-  border-radius: 12px;
-  background: #fff;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 1rem;
-  color: var(--text);
-  outline: none;
-  transition: border-color 0.25s, box-shadow 0.25s;
-}
-.input-wrap input:focus {
-  border-color: var(--terra);
-  box-shadow: 0 0 0 4px var(--terra-light);
-}
-.error-msg {
-  color: var(--rose-deep);
-  font-size: 0.85rem;
-  margin-top: 0.6rem;
-  display: none;
-  font-style: italic;
-}
+.iw { margin: 1.1rem 0 0.4rem; }
+.iw label { display: block; font-size: 0.63rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.55rem; font-weight: 500; }
+.iw input { width: 100%; padding: 0.9rem 1.1rem; border: 2px solid #e8d0c0; border-radius: 12px; background: #fff; font-family: 'DM Sans', sans-serif; font-size: 1rem; color: var(--text); outline: none; transition: border-color 0.25s, box-shadow 0.25s; }
+.iw input:focus { border-color: var(--terra); box-shadow: 0 0 0 4px var(--terra-light); }
+.err { color: var(--rose-deep); font-size: 0.83rem; margin-top: 0.55rem; display: none; font-style: italic; }
+.hint { font-size: 0.76rem; color: var(--gold); margin-top: 0.4rem; display: none; font-style: italic; }
 
-/* ── Buttons ── */
-.btn {
-  display: block;
-  width: 100%;
-  padding: 1.05rem;
-  background: var(--brown);
-  color: var(--cream);
-  border: none;
-  border-radius: 12px;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.88rem;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  cursor: pointer;
-  transition: background 0.2s, transform 0.1s;
-  margin-top: 0.8rem;
-  position: relative;
-  overflow: hidden;
-}
+/* ── Boutons ── */
+.btn { display: block; width: 100%; padding: 1rem; background: var(--brown); color: var(--cream); border: none; border-radius: 12px; font-family: 'DM Sans', sans-serif; font-size: 0.86rem; font-weight: 500; letter-spacing: 0.08em; cursor: pointer; transition: background 0.2s, transform 0.1s; margin-top: 0.8rem; }
 .btn:hover { background: var(--brown-mid); }
 .btn:active { transform: scale(0.98); }
-.btn-secondary {
-  background: transparent;
-  color: var(--brown);
-  border: 2px solid #e8d0c0;
-  margin-top: 0.5rem;
-}
-.btn-secondary:hover { background: var(--terra-light); border-color: var(--terra); }
+.btn-sm { max-width: 280px; margin-left: auto; margin-right: auto; }
 
-/* ── Success screens ── */
-.success-wrap { text-align: center; }
-.check-circle {
-  width: 64px; height: 64px;
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  margin: 0 auto 1.4rem;
-  font-size: 1.6rem;
-  animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-.check-rose { background: var(--rose-light); color: var(--rose-deep); }
-.check-green { background: #e8f5e0; color: #3a7020; }
-@keyframes popIn {
-  from { transform: scale(0); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
-}
-.success-wrap h1 { font-size: 1.8rem; margin-bottom: 0.8rem; }
-.success-wrap p { font-size: 0.97rem; }
+/* ── Centre ── */
+.center { text-align: center; }
+.check-circle { width: 64px; height: 64px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.3rem; animation: popIn 0.4s cubic-bezier(0.175,0.885,0.32,1.275); }
+.cc-rose { background: var(--rose-light); color: var(--rose-deep); font-size: 1.7rem; }
+.cc-green { background: var(--green-light); color: var(--green); font-size: 1.7rem; }
+.cc-gold { background: var(--gold-light); color: var(--gold); font-size: 1.8rem; }
+@keyframes popIn { from{transform:scale(0);opacity:0} to{transform:scale(1);opacity:1} }
+.sep { width: 40px; height: 2px; border-radius: 2px; margin: 1rem auto 1.2rem; }
+.sep-rose { background: var(--rose); }
+.sep-green { background: #8bc34a; }
+.sep-gold { background: var(--gold); }
 
-/* ── Location reveal ── */
-.location-pill {
-  display: inline-block;
-  background: var(--gold-light);
-  border: 1.5px solid var(--gold);
-  border-radius: 30px;
-  padding: 0.5rem 1.2rem;
-  font-family: 'Fraunces', serif;
-  font-style: italic;
-  font-size: 1.1rem;
-  color: var(--brown);
-  margin: 0.8rem 0 1.2rem;
-}
-
-/* ── Phrase reveal ── */
-.phrase-reveal-wrap {
-  margin: 1.2rem 0 1rem;
-  padding: 1rem 1.2rem;
-  background: var(--gold-light);
-  border: 1.5px solid #e8c878;
-  border-radius: 14px;
-  text-align: left;
-}
-.phrase-reveal-label {
-  font-size: 0.6rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--brown-mid);
-  margin-bottom: 0.7rem;
-  font-weight: 500;
-}
-.phrase-words {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  align-items: center;
-}
-.p-word {
-  font-family: 'Fraunces', serif;
-  font-size: 1.1rem;
-  font-weight: 600;
-  padding: 0.28rem 0.65rem;
-  border-radius: 8px;
-}
-.p-word.revealed {
-  background: var(--terra);
-  color: #fff;
-}
-.p-word.new-word {
-  background: var(--rose-deep);
-  color: #fff;
-  animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
-  box-shadow: 0 0 0 3px var(--rose-light);
-}
-.p-word.hidden {
-  background: #e8d0c0;
-  color: #c0a090;
-  min-width: 40px;
+/* ── Mot révélé (écran succès étape) ── */
+.word-reveal {
+  background: var(--terra-light);
+  border: 2px solid var(--terra);
+  border-radius: 16px;
+  padding: 1.1rem 1.5rem;
+  margin: 1.2rem auto;
+  max-width: 260px;
   text-align: center;
-  font-size: 0.75rem;
-  letter-spacing: 0.1em;
+}
+.wr-label { font-size: 0.58rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--terra); margin-bottom: 0.5rem; font-weight: 500; }
+.wr-word { font-family: 'Fraunces', serif; font-size: 2.2rem; font-weight: 600; color: var(--terra); animation: wordPop 0.6s cubic-bezier(0.175,0.885,0.32,1.275); }
+@keyframes wordPop { from{transform:scale(0.5) translateY(10px);opacity:0} to{transform:scale(1) translateY(0);opacity:1} }
+
+/* ── Collection de mots (sous le mot révélé) ── */
+.words-collected {
+  display: flex; flex-wrap: wrap; gap: 6px;
+  justify-content: center; margin: 0.8rem 0 1.2rem;
+}
+.wc-chip {
+  background: #fff;
+  border: 1.5px solid #e8d0c0;
+  border-radius: 20px;
+  padding: 0.25rem 0.75rem;
+  font-family: 'Fraunces', serif;
+  font-size: 0.95rem;
+  color: var(--brown-mid);
+  font-style: italic;
 }
 
-/* ── Final screen ── */
-.final-wrap { text-align: center; }
-.final-boubous {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  margin-bottom: 1.8rem;
+/* ── Location pill ── */
+.loc-pill { display: inline-block; background: var(--gold-light); border: 1.5px solid var(--gold); border-radius: 30px; padding: 0.45rem 1.1rem; font-family: 'Fraunces', serif; font-style: italic; font-size: 1.05rem; color: var(--brown); margin: 0.7rem 0 1rem; }
+
+/* ── Mini boubous ── */
+.mini-bb { display: flex; justify-content: center; align-items: center; gap: 6px; margin: 1rem 0; }
+.mbb { width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 600; font-family: 'Fraunces', serif; }
+.mbb1 { background: var(--rose); color: #fff; }
+.mbb2 { background: var(--terra-light); color: var(--terra); border: 1.5px solid var(--terra); }
+.mheart { font-size: 1rem; color: var(--rose-deep); animation: hb 1.8s ease-in-out infinite; }
+
+/* ── Final phrase ── */
+.final-phrase {
+  margin: 1.5rem 0 1rem;
+  text-align: center;
 }
-.boubou-lg {
-  width: 52px; height: 52px;
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-family: 'Fraunces', serif;
-  font-size: 1.2rem;
-  font-weight: 600;
+.fp-words {
+  display: flex; flex-wrap: wrap; gap: 10px;
+  justify-content: center; align-items: baseline;
+  margin-bottom: 0.5rem;
 }
-.boubou-lg-1 { background: var(--rose); color: #fff; box-shadow: 0 4px 16px #f2a4a455; }
-.boubou-lg-2 { background: var(--terra-light); color: var(--terra); border: 2px solid var(--terra); }
-.heart-lg { font-size: 1.8rem; animation: heartbeat 1.5s ease-in-out infinite; }
-.final-wrap h1 { font-size: 2rem; margin-bottom: 1rem; }
-.final-question {
+.fp-word {
   font-family: 'Fraunces', serif;
-  font-size: 2.2rem;
+  font-size: 2rem;
   font-weight: 600;
-  font-style: italic;
   color: var(--terra);
-  margin: 1.2rem 0;
-  line-height: 1.3;
-  animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.2s both;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.5s, transform 0.5s;
 }
-.final-wrap .tagline {
-  font-family: 'Fraunces', serif;
-  font-style: italic;
-  font-size: 1.15rem;
-  color: var(--brown-mid);
-  margin-top: 1.2rem;
-  line-height: 1.6;
-}
+.fp-word.show { opacity: 1; transform: translateY(0); }
+
+/* ── Big boubous ── */
+.big-bb { display: flex; justify-content: center; align-items: center; gap: 10px; margin-bottom: 1.8rem; }
+.bbb { width: 54px; height: 54px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Fraunces', serif; font-size: 1.2rem; font-weight: 600; }
+.bbb1 { background: var(--rose); color: #fff; box-shadow: 0 4px 18px #f2a4a455; }
+.bbb2 { background: var(--terra-light); color: var(--terra); border: 2px solid var(--terra); }
+.big-heart { font-size: 1.9rem; animation: hb 1.5s ease-in-out infinite; }
 
 /* ── Confetti ── */
-.confetti-container {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  pointer-events: none;
-  z-index: 999;
-  overflow: hidden;
-  height: 100vh;
-}
-.confetti-piece {
-  position: absolute;
-  width: 8px; height: 8px;
-  border-radius: 2px;
-  top: -10px;
-  animation: confettiFall linear forwards;
-}
-@keyframes confettiFall {
-  to { transform: translateY(110vh) rotate(720deg); opacity: 0; }
-}
-
-/* ── Decorative dots ── */
-.deco {
-  position: fixed;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0.25;
-}
-.deco-1 { width: 180px; height: 180px; background: var(--rose-light); top: -60px; right: -60px; }
-.deco-2 { width: 120px; height: 120px; background: var(--terra-light); bottom: 40px; left: -40px; }
-.deco-3 { width: 60px; height: 60px; background: var(--gold-light); bottom: 200px; right: 20px; }
+.confetti-wrap { position: fixed; top: 0; left: 0; right: 0; pointer-events: none; z-index: 999; overflow: hidden; height: 100vh; }
+.cp { position: absolute; top: -10px; animation: cfall linear forwards; }
+@keyframes cfall { to { transform: translateY(110vh) rotate(720deg); opacity: 0; } }
 </style>
 </head>
 <body>
@@ -429,408 +206,337 @@ p {
 <div class="deco deco-1"></div>
 <div class="deco deco-2"></div>
 <div class="deco deco-3"></div>
-<div class="confetti-container" id="confetti-container"></div>
+<div class="confetti-wrap" id="cw"></div>
 
-<!-- ── ACCUEIL ── -->
+<!-- ══════════════════════════════════════
+     ACCUEIL
+══════════════════════════════════════ -->
 <div class="screen active" id="s-welcome">
   <div class="boubous">
-    <div class="boubou boubou-1">B</div>
-    <span class="boubou-heart">♥</span>
-    <div class="boubou boubou-2">B</div>
-    <span class="boubou-label">Sur la trace des Boubous</span>
+    <div class="bb bb1">B</div>
+    <span class="bb-heart">♥</span>
+    <div class="bb bb2">B</div>
+    <span class="bb-label">Sur la trace des Boubous</span>
   </div>
-  <h1>Bienvenue dans le jeu <em>Sur la trace des Boubous</em>&nbsp;!</h1>
-  <p>Plusieurs indices se cachent dans des lieux que tu connais bien. À chaque étape, tu devras te rendre sur un lieu bien connu pour y trouver la réponse à une énigme. Une fois que tu as trouvé la réponse, entre-la dans le champ dédié, et ainsi de suite.</p>
-  <p>Voyons si tu as bien compris le principe&nbsp;: pour connaître la prochaine étape, entre ton prénom.</p>
-  <div class="input-wrap">
+  <h1>Bienvenue dans le jeu des <em>Boubous</em>&nbsp;!</h1>
+  <p>Plusieurs indices se cachent dans des lieux que tu connais bien. À chaque étape, rends-toi sur le lieu indiqué et résous l'énigme sur place.</p>
+  <p>Si tu trouves le bon code, un mot d'une phrase mystérieuse te sera révélé. Sauras-tu la reconstituer&nbsp;?</p>
+  <p>Voyons si tu as bien compris — pour commencer, entre ton prénom.</p>
+  <div class="iw">
     <label>Ton prénom</label>
-    <input type="text" id="input-prenom" placeholder="Ton prénom…" autocomplete="off" />
-    <div class="error-msg" id="err-prenom">Hmm, ce n'est pas le bon prénom… 🤔</div>
+    <input type="text" id="ip" placeholder="Ton prénom…" autocomplete="off" />
+    <div class="err" id="ep">Hmm, ce n'est pas le bon prénom… 🤔</div>
   </div>
-  <button class="btn" onclick="validatePrenom()">Valider →</button>
+  <button class="btn" onclick="validatePrenom()">C'est moi →</button>
 </div>
 
-<!-- ── TUTO ── -->
+<!-- ══════════════════════════════════════
+     TUTO
+══════════════════════════════════════ -->
 <div class="screen" id="s-tuto">
-  <div class="success-wrap">
-    <div class="check-circle check-rose">✓</div>
-    <h1>Bravo&nbsp;! Bonne réponse&nbsp;!</h1>
-    <div style="width:40px;height:2px;background:var(--rose);margin:1rem auto 1.5rem;border-radius:2px;"></div>
-    <p>Tu as maintenant compris comment fonctionne le jeu de piste des Boubous. À chaque étape, tu devras entrer le mot de code pour passer à l'étape suivante.</p>
-    <p>Prête à partir à l'aventure&nbsp;? C'est parti&nbsp;!</p>
-    <div style="display:flex;justify-content:center;gap:8px;margin:1.5rem 0;">
-      <div class="boubou boubou-1" style="width:28px;height:28px;font-size:11px;">B</div>
-      <span style="font-size:1.2rem;animation:heartbeat 1.8s ease-in-out infinite;display:inline-block;color:var(--rose-deep);">♥</span>
-      <div class="boubou boubou-2" style="width:28px;height:28px;font-size:11px;">B</div>
+  <div class="center">
+    <div class="check-circle cc-rose">✓</div>
+    <h1>Bravo, c'est bien toi&nbsp;!</h1>
+    <div class="sep sep-rose"></div>
+    <p>Tu as compris comment ça marche. À chaque étape : trouve le lieu, rends-toi y, résous l'énigme sur place — et un mot secret te sera révélé.</p>
+    <p>Reconstitue la phrase pour découvrir ce qui t'attend au bout du chemin…</p>
+    <div class="mini-bb">
+      <div class="mbb mbb1">B</div>
+      <span class="mheart">♥</span>
+      <div class="mbb mbb2">B</div>
     </div>
-    <button class="btn" onclick="showStep(0)" style="max-width:280px;margin:0 auto;">C'est parti&nbsp;! →</button>
+    <button class="btn btn-sm" onclick="showS('sg0')">C'est parti ! →</button>
   </div>
 </div>
 
-<!-- ── ÉTAPES (générées par JS) ── -->
-<div id="steps-container"></div>
+<!-- ══════════════════════════════════════
+     ÉTAPES
+══════════════════════════════════════ -->
+<div id="sc"></div>
 
-<!-- ── FINAL ── -->
+<!-- ══════════════════════════════════════
+     FINAL
+══════════════════════════════════════ -->
 <div class="screen" id="s-final">
-  <div class="final-wrap">
-    <div class="final-boubous">
-      <div class="boubou-lg boubou-lg-1">B</div>
-      <span class="heart-lg">♥</span>
-      <div class="boubou-lg boubou-lg-2">B</div>
+  <div class="center">
+    <div class="big-bb">
+      <div class="bbb bbb1">B</div>
+      <span class="big-heart">♥</span>
+      <div class="bbb bbb2">B</div>
     </div>
     <h1>Tu as tout trouvé&nbsp;!</h1>
-    <div style="width:40px;height:2px;background:var(--rose);margin:1rem auto 1rem;border-radius:2px;"></div>
-    <p>Tu as reconstitué la phrase…</p>
-    <div class="final-question">Veux-tu m'épouser&nbsp;?</div>
-    <p class="tagline">Maintenant, lève les yeux.&nbsp;💍</p>
+    <div class="sep sep-rose"></div>
+    <p>La phrase mystérieuse était…</p>
+    <div class="final-phrase">
+      <div class="fp-words" id="fp-words"></div>
+    </div>
+    <p style="font-family:'Fraunces',serif;font-style:italic;font-size:1.1rem;color:var(--terra);margin-top:1rem;line-height:1.5;">
+      Rends-toi au Passage du Jeu de Boules.<br>Je t'y attends.
+    </p>
   </div>
 </div>
 
 <script>
-// ────────────────────────────────────────────────────
+// ══════════════════════════════════════════════════
 // DONNÉES
-// ────────────────────────────────────────────────────
-
-// Les 4 mots à révéler, dans l'ordre
-const PHRASE_WORDS = ["Veux", "tu", "m'", "épouser"];
+// ══════════════════════════════════════════════════
+const PHRASE = ["Veux", "tu", "m'épouser", "?"];
 
 const STEPS = [
-  // ── Étape 1 : Bistro Père (2 phases : confirmation lieu + énigme sur place)
   {
-    num: 1,
-    hasTwoPhases: true,
-
-    // Phase A : confirmation du lieu
-    clue: "Pour commencer, rends-toi au <strong>Bistro Père</strong>.",
-    clueLabel: "Indice",
-    clueInputLabel: "Nom du lieu",
-    clueInputPlaceholder: "Entre le nom du lieu…",
-    clueAccepted: ["bistro pere","bistro père","le bistro pere","le bistro père","bistro"],
-
-    // Phase B : énigme sur place
-    onsiteEnigma: "Juste à côté du Bistro Père, il y a un ostéopathe qui s'appelle <strong>Hippolyte Zabukovec</strong>, et un salon de coiffure qui s'appelle <strong>Coiffure et Tendance</strong>.<br><br>Si Hippolyte voulait se faire une coiffure tendance un samedi, jusqu'à quelle heure pourrait-il se faire coiffer&nbsp;?",
-    onsiteCode: ["17h", "17h00", "17:00", "dix-sept heures", "17"],  // ⚠️ À VÉRIFIER avec Yannis
-
+    locationHint: "Rends-toi au Bistro Père.",
+    locationAccepted: ["bistro pere","bistro","le bistro pere","le bistro","bistro-pere","bistropere"],
     locationName: "Bistro Père",
-    emoji: "🍽️",
-    revealIndex: 0,  // révèle PHRASE_WORDS[0] = "Veux"
-    successMsg: "Le Bistro Père… notre tout premier dîner ensemble. Tu t'en souviens&nbsp;?"
+    locationEmoji: "🍽️",
+    onsiteChallenge: "Hippolyte Zabukovec est ostéo juste à côté d'un salon qui s'appelle Coiffure et Tendance. Si Hippolyte voulait se faire coiffer un samedi, jusqu'à quelle heure pourrait-il se faire coiffer ?",
+    onsiteAccepted: ["18h","18h00","18 h","18:00","18","6h","6h du soir","jusqu a 18h","jusqu a 18h00"],
+    wordIndex: 0,
+    successMsg: "Notre tout premier dîner ensemble. Tu t'en souviens ?"
   },
-
-  // ── Étape 2 : Place de la Réunion
   {
-    num: 2,
-    hasTwoPhases: false,
-    clue: "Rends-toi <strong>place de la Réunion</strong>. Sur place, tu trouveras le mot de code.",
-    clueLabel: "Indice",
-    clueInputLabel: "Mot de code",
-    clueInputPlaceholder: "Entre le mot de code…",
-    clueAccepted: ["cure", "la cure"],
+    locationHint: "Rends-toi Place de la Réunion.",
+    locationAccepted: ["cure","la cure","place de la reunion","place reunion","la reunion","place de reunion"],
     locationName: "Place de la Réunion",
-    emoji: "🏡",
-    revealIndex: 1,  // "tu"
-    successMsg: "La Cure… ce petit appartement qui avait quelque chose de magique."
+    locationEmoji: "🏡",
+    onsiteChallenge: "[DÉFI SUR PLACE À DÉFINIR]",
+    onsiteAccepted: ["cure"],
+    wordIndex: 1,
+    successMsg: "La cure… tu y venais si souvent au début. Ce petit appart avait quelque chose de magique."
   },
-
-  // ── Étape 3 : L'Autobus
   {
-    num: 3,
-    hasTwoPhases: false,
-    clue: "Direction <strong>L'Autobus</strong>. Le mot de code t'y attend.",
-    clueLabel: "Indice",
-    clueInputLabel: "Mot de code",
-    clueInputPlaceholder: "Entre le mot de code…",
-    clueAccepted: ["autobus", "l autobus", "lautobus", "l'autobus"],
+    locationHint: "Rends-toi à L'Autobus.",
+    locationAccepted: ["autobus","l autobus","lautobus","bar autobus","bar l autobus"],
     locationName: "L'Autobus",
-    emoji: "🚌",
-    revealIndex: 2,  // "m'"
-    successMsg: "L'Autobus… ce soir où tu es venue à l'improviste. C'était parfait."
+    locationEmoji: "🚌",
+    onsiteChallenge: "[DÉFI SUR PLACE À DÉFINIR]",
+    onsiteAccepted: ["autobus"],
+    wordIndex: 2,
+    successMsg: "Ce soir à l'improviste… tu es venue sans prévenir, et c'était parfait."
   },
-
-  // ── Étape 4 : Passage du Jeu de Boules
   {
-    num: 4,
-    hasTwoPhases: false,
-    clue: "Rends-toi au <strong>Passage du Jeu de Boules</strong>. Le mot de code s'y cache.",
-    clueLabel: "Indice",
-    clueInputLabel: "Mot de code",
-    clueInputPlaceholder: "Entre le mot de code…",
-    clueAccepted: ["jeu de boules","passage jeu de boules","passage du jeu de boules","jeu de boule","passage des jeux de boules"],
-    locationName: "Passage du Jeu de Boules",
-    emoji: "🎳",
-    revealIndex: 3,  // "épouser"
-    successMsg: "Ce passage, ce soir-là après l'Autobus… un de ces moments qu'on n'oublie pas."
-  },
-
-  // ── Étape 5 : L'Échiquier (étape finale)
-  {
-    num: 5,
-    hasTwoPhases: false,
-    clue: "Dernière étape&nbsp;: rends-toi à <strong>L'Échiquier</strong>. Le mot de code final t'y attend.",
-    clueLabel: "Indice",
-    clueInputLabel: "Mot de code",
-    clueInputPlaceholder: "Entre le mot de code…",
-    clueAccepted: ["echiquier","l echiquier","lechiquier","échiquier","l'échiquier","l echiquier"],
+    locationHint: "Rends-toi à L'Échiquier.",
+    locationAccepted: ["echiquier","l echiquier","lechiquier","restaurant echiquier","restaurant l echiquier"],
     locationName: "L'Échiquier",
-    emoji: "♟️",
-    revealIndex: null,  // étape finale, pas de nouveau mot
+    locationEmoji: "♟️",
+    onsiteChallenge: "[DÉFI SUR PLACE À DÉFINIR]",
+    onsiteAccepted: ["echiquier"],
+    wordIndex: 3,
     successMsg: null
   }
 ];
 
 const TOTAL = STEPS.length;
+let collectedWords = []; // mots révélés dans l'ordre de découverte
 
-// ────────────────────────────────────────────────────
+// ══════════════════════════════════════════════════
 // GÉNÉRATION DES ÉCRANS
-// ────────────────────────────────────────────────────
-
-const container = document.getElementById('steps-container');
-
-function buildProgress(currentIndex) {
-  let html = '';
-  for (let d = 0; d < TOTAL; d++) {
-    const cls = d < currentIndex ? ' done' : d === currentIndex ? ' current' : '';
-    html += `<div class="p-dot${cls}"></div>`;
-    if (d < TOTAL - 1) html += `<div class="p-line${d < currentIndex ? ' done' : ''}"></div>`;
-  }
-  return html;
-}
-
-function buildPhraseHTML(upToRevealIndex, newRevealIndex) {
-  // upToRevealIndex : combien de mots sont déjà révélés AVANT ce succès
-  // newRevealIndex  : l'index du mot NEW (surligné en rose) — null si pas de nouveau mot
-  let words = '';
-  for (let w = 0; w < PHRASE_WORDS.length; w++) {
-    if (w < upToRevealIndex) {
-      words += `<span class="p-word revealed">${PHRASE_WORDS[w]}</span>`;
-    } else if (w === newRevealIndex) {
-      words += `<span class="p-word new-word">${PHRASE_WORDS[w]}</span>`;
-    } else {
-      words += `<span class="p-word hidden">···</span>`;
-    }
-  }
-  return `
-    <div class="phrase-reveal-wrap">
-      <div class="phrase-reveal-label">La phrase jusqu'ici</div>
-      <div class="phrase-words">${words}</div>
-    </div>`;
-}
+// ══════════════════════════════════════════════════
+const sc = document.getElementById('sc');
 
 STEPS.forEach((step, i) => {
+  const num = i + 1;
   const isLast = i === TOTAL - 1;
-  const prog = buildProgress(i);
 
-  // ── Phase A : écran d'énigme / indice
-  const screenA = document.createElement('div');
-  screenA.className = 'screen';
-  screenA.id = `s-clue-${i}`;
+  let prog = '';
+  for (let d = 0; d < TOTAL; d++) {
+    prog += `<div class="pd${d < i ? ' done' : d === i ? ' current' : ''}"></div>`;
+    if (d < TOTAL - 1) prog += `<div class="pl${d < i ? ' done' : ''}"></div>`;
+  }
 
-  // Phrase déjà révélée (avant cette étape)
-  const wordsRevealedBefore = i; // étapes 0..i-1 ont chacune révélé un mot (sauf la dernière)
-  const phraseHTMLTop = wordsRevealedBefore > 0 ? buildPhraseHTML(wordsRevealedBefore, null) : '';
-
-  screenA.innerHTML = `
+  // — Phase 1 : Devinette du lieu
+  const gd = document.createElement('div');
+  gd.className = 'screen'; gd.id = `sg${i}`;
+  gd.innerHTML = `
     <div class="progress">${prog}</div>
-    <div class="step-label">Étape ${step.num} sur ${TOTAL}</div>
-    ${phraseHTMLTop}
-    <span class="phase-badge badge-guess">🔍 ${step.hasTwoPhases ? 'Confirme le lieu' : 'Trouve le mot de code'}</span>
+    <div class="step-lbl">Étape ${num} sur ${TOTAL} · Trouve le lieu</div>
+    <span class="badge badge-gold">🔍 Quelle est la destination ?</span>
+    <h1>Où dois-tu aller&nbsp;?</h1>
     <div class="card">
-      <div class="card-label">${step.clueLabel}</div>
-      <p>${step.clue}</p>
+      <div class="card-lbl">Indice</div>
+      <p>${step.locationHint}</p>
     </div>
-    <div class="input-wrap">
-      <label>${step.clueInputLabel}</label>
-      <input type="text" id="ia-${i}" placeholder="${step.clueInputPlaceholder}" autocomplete="off" />
-      <div class="error-msg" id="ea-${i}">Ce n'est pas ça… cherche encore&nbsp;! 🤔</div>
+    <div class="iw">
+      <label>Nom du lieu</label>
+      <input type="text" id="ig${i}" placeholder="Entre le nom du lieu…" autocomplete="off" />
+      <div class="err" id="eg${i}">Ce n'est pas ça… cherche encore ! 🤔</div>
+      <div class="hint" id="hg${i}"></div>
     </div>
-    <button class="btn" onclick="validateClue(${i})">Valider →</button>
+    <button class="btn" onclick="validateGuess(${i})">Valider →</button>
   `;
-  container.appendChild(screenA);
+  sc.appendChild(gd);
 
-  if (step.hasTwoPhases) {
-    // ── Confirmation lieu (écran intermédiaire)
-    const screenConf = document.createElement('div');
-    screenConf.className = 'screen';
-    screenConf.id = `s-confirm-${i}`;
-    screenConf.innerHTML = `
-      <div class="success-wrap">
-        <div class="check-circle check-rose">✓</div>
-        <h1>Bonne réponse&nbsp;!</h1>
-        <div style="width:40px;height:2px;background:var(--rose);margin:1rem auto 1rem;border-radius:2px;"></div>
-        <p>Direction&nbsp;:</p>
-        <div class="location-pill">${step.emoji} ${step.locationName}</div>
-        <p style="font-size:0.92rem;">Rends-toi là-bas, et une fois sur place, clique sur le bouton ci-dessous.</p>
-        <button class="btn" style="max-width:280px;margin:1.5rem auto 0;" onclick="showScreen('s-onsite-${i}')">J'y suis&nbsp;→</button>
-      </div>
-    `;
-    container.appendChild(screenConf);
+  // — Confirmation lieu
+  const cd = document.createElement('div');
+  cd.className = 'screen'; cd.id = `sc${i}`;
+  cd.innerHTML = `
+    <div class="center">
+      <div class="check-circle cc-rose">✓</div>
+      <h1>C'est bien ça&nbsp;!</h1>
+      <div class="sep sep-rose"></div>
+      <p>Direction</p>
+      <div class="loc-pill">${step.locationEmoji} ${step.locationName}</div>
+      <p style="font-size:0.92rem;">Rends-toi là-bas et résous l'énigme sur place.</p>
+      <button class="btn btn-sm" onclick="showS('so${i}')" style="margin-top:1.5rem;">J'y suis →</button>
+    </div>
+  `;
+  sc.appendChild(cd);
 
-    // ── Phase B : énigme sur place
-    const screenB = document.createElement('div');
-    screenB.className = 'screen';
-    screenB.id = `s-onsite-${i}`;
-    screenB.innerHTML = `
-      <div class="progress">${prog}</div>
-      <div class="step-label">Étape ${step.num} sur ${TOTAL} · Sur place</div>
-      ${phraseHTMLTop}
-      <span class="phase-badge badge-onsite">📍 Tu y es&nbsp;!</span>
-      <h2>${step.locationName}</h2>
-      <h1>Résous l'énigme</h1>
-      <div class="card card-onsite">
-        <div class="card-label">Énigme</div>
-        <p>${step.onsiteEnigma}</p>
-      </div>
-      <div class="input-wrap">
-        <label>Ta réponse</label>
-        <input type="text" id="ib-${i}" placeholder="Entre ta réponse…" autocomplete="off" />
-        <div class="error-msg" id="eb-${i}">Ce n'est pas ça… cherche encore&nbsp;!</div>
-      </div>
-      <button class="btn" onclick="validateOnsite(${i})">Valider →</button>
-    `;
-    container.appendChild(screenB);
-  }
+  // — Phase 2 : Sur place
+  const od = document.createElement('div');
+  od.className = 'screen'; od.id = `so${i}`;
+  od.innerHTML = `
+    <div class="progress">${prog}</div>
+    <div class="step-lbl">Étape ${num} sur ${TOTAL} · Sur place</div>
+    <span class="badge badge-green">📍 Tu y es !</span>
+    <h2>${step.locationName}</h2>
+    <h1>Résous l'énigme</h1>
+    <div class="card green">
+      <div class="card-lbl">Énigme sur place</div>
+      <p>${step.onsiteChallenge}</p>
+    </div>
+    <div class="iw">
+      <label>Ta réponse</label>
+      <input type="text" id="io${i}" placeholder="Entre ta réponse…" autocomplete="off" />
+      <div class="err" id="eo${i}">Ce n'est pas la bonne réponse… cherche encore !</div>
+    </div>
+    <button class="btn" onclick="validateOnsite(${i})">Valider →</button>
+  `;
+  sc.appendChild(od);
 
-  // ── Écran de succès (inter-étape ou final)
-  if (!isLast) {
-    const revIdx = step.revealIndex;
-    const wordsRevealedAfter = revIdx !== null ? revIdx : wordsRevealedBefore;
-    const newWordPhraseHTML = buildPhraseHTML(wordsRevealedAfter, revIdx);
-
-    const screenSuccess = document.createElement('div');
-    screenSuccess.className = 'screen';
-    screenSuccess.id = `s-success-${i}`;
-    screenSuccess.innerHTML = `
-      <div class="success-wrap">
-        <div class="check-circle check-green">✓</div>
-        <h1>Bien joué&nbsp;!</h1>
-        <div style="width:40px;height:2px;background:#8bc34a;margin:1rem auto 1rem;border-radius:2px;"></div>
-        ${revIdx !== null ? `
-          <p style="font-size:0.85rem;margin-bottom:0.4rem;">Nouveau mot dévoilé&nbsp;:</p>
-          ${newWordPhraseHTML}
-        ` : ''}
-        <p style="font-size:0.92rem;margin-top:0.8rem;color:var(--text-muted);">${step.successMsg || ''}</p>
-        <div style="display:flex;justify-content:center;gap:6px;margin:1.2rem 0;">
-          <div class="boubou boubou-1" style="width:26px;height:26px;font-size:10px;">B</div>
-          <span style="font-size:1.1rem;color:var(--rose-deep);animation:heartbeat 1.8s ease-in-out infinite;display:inline-block;">♥</span>
-          <div class="boubou boubou-2" style="width:26px;height:26px;font-size:10px;">B</div>
-        </div>
-        <button class="btn" style="max-width:280px;margin:0 auto;" onclick="showStep(${i + 1})">Étape suivante →</button>
+  // — Révélation du mot
+  const rd = document.createElement('div');
+  rd.className = 'screen'; rd.id = `sr${i}`;
+  const nextAction = isLast ? `showFinal()` : `showS('sg${i+1}')`;
+  const nextLabel  = isLast ? `Voir la suite →` : `Étape suivante →`;
+  rd.innerHTML = `
+    <div class="center">
+      <div class="check-circle cc-gold">✨</div>
+      <h1>Bien joué&nbsp;!</h1>
+      <div class="sep sep-gold"></div>
+      ${step.successMsg ? `<p>${step.successMsg}</p>` : ''}
+      <p style="font-size:0.88rem;margin-bottom:0.3rem;">Ton nouveau mot&nbsp;:</p>
+      <div class="word-reveal">
+        <div class="wr-label">Mot ${num} sur ${TOTAL}</div>
+        <div class="wr-word">${PHRASE[step.wordIndex]}</div>
       </div>
-    `;
-    container.appendChild(screenSuccess);
-  }
+      <div id="collected-${i}" class="words-collected"></div>
+      <button class="btn btn-sm" onclick="${nextAction}" style="margin-top:0.5rem;">${nextLabel}</button>
+    </div>
+  `;
+  sc.appendChild(rd);
 });
 
-// ────────────────────────────────────────────────────
+// ══════════════════════════════════════════════════
 // LOGIQUE
-// ────────────────────────────────────────────────────
+// ══════════════════════════════════════════════════
+let wrongG = {};
 
 function norm(s) {
   return s.trim().toLowerCase()
-    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-    .replace(/[''ʼ`]/g, '')
-    .replace(/[-_]/g, ' ')
-    .replace(/\s+/g, ' ');
+    .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+    .replace(/[''ʼ`]/g,'').replace(/[-_]/g,' ').replace(/\s+/g,' ');
 }
 
-function showScreen(id) {
+function showS(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   const el = document.getElementById(id);
-  if (el) { el.classList.add('active'); window.scrollTo(0, 0); }
-}
-
-function showStep(i) {
-  showScreen(`s-clue-${i}`);
+  if (el) { el.classList.add('active'); window.scrollTo(0,0); }
 }
 
 function validatePrenom() {
-  const v = norm(document.getElementById('input-prenom').value);
-  if (v === 'manon') {
-    confetti();
-    showScreen('s-tuto');
-  } else {
-    document.getElementById('err-prenom').style.display = 'block';
-    document.getElementById('input-prenom').value = '';
-    document.getElementById('input-prenom').focus();
+  const v = norm(document.getElementById('ip').value);
+  if (v === 'manon') { confetti(); showS('s-tuto'); }
+  else {
+    document.getElementById('ep').style.display = 'block';
+    document.getElementById('ip').value = '';
+    document.getElementById('ip').focus();
   }
 }
 
-function validateClue(i) {
-  const input = document.getElementById(`ia-${i}`);
-  const err = document.getElementById(`ea-${i}`);
-  const v = norm(input.value);
-  const ok = STEPS[i].clueAccepted.map(norm);
-
+function validateGuess(i) {
+  const inp = document.getElementById(`ig${i}`);
+  const err = document.getElementById(`eg${i}`);
+  const hnt = document.getElementById(`hg${i}`);
+  const v   = norm(inp.value);
+  const ok  = STEPS[i].locationAccepted.map(norm);
   if (ok.includes(v)) {
-    err.style.display = 'none';
+    err.style.display='none'; hnt.style.display='none';
+    wrongG[i] = 0;
     confetti();
-    if (STEPS[i].hasTwoPhases) {
-      showScreen(`s-confirm-${i}`);
-    } else {
-      // Étape simple : code trouvé sur place → succès direct
-      if (i === TOTAL - 1) {
-        confetti(); confetti();
-        showScreen('s-final');
-      } else {
-        showScreen(`s-success-${i}`);
-      }
-    }
+    showS(`sc${i}`);
   } else {
-    err.style.display = 'block';
-    input.value = '';
-    input.focus();
+    wrongG[i] = (wrongG[i]||0) + 1;
+    err.style.display='block';
+    if (wrongG[i] >= 3) {
+      hnt.style.display='block';
+      hnt.textContent = `${wrongG[i]} tentative${wrongG[i]>1?'s':''}… tu brûles !`;
+    }
+    inp.value=''; inp.focus();
   }
 }
 
 function validateOnsite(i) {
-  const input = document.getElementById(`ib-${i}`);
-  const err = document.getElementById(`eb-${i}`);
-  const v = norm(input.value);
-  const ok = STEPS[i].onsiteCode.map(norm);
-
+  const inp = document.getElementById(`io${i}`);
+  const err = document.getElementById(`eo${i}`);
+  const v   = norm(inp.value);
+  const ok  = STEPS[i].onsiteAccepted.map(norm);
   if (ok.includes(v)) {
-    err.style.display = 'none';
+    err.style.display='none';
+    // Ajoute le mot à la collection
+    collectedWords.push(PHRASE[STEPS[i].wordIndex]);
     confetti();
-    if (i === TOTAL - 1) {
-      confetti(); confetti();
-      showScreen('s-final');
-    } else {
-      showScreen(`s-success-${i}`);
+    // Affiche la collection sous le mot révélé
+    const col = document.getElementById(`collected-${i}`);
+    if (col && collectedWords.length > 1) {
+      col.innerHTML = `<p style="font-size:0.78rem;color:var(--text-muted);margin-bottom:0.5rem;width:100%;">Tes mots jusqu'ici :</p>`
+        + collectedWords.map(w => `<span class="wc-chip">${w}</span>`).join('');
     }
+    showS(`sr${i}`);
   } else {
-    err.style.display = 'block';
-    input.value = '';
-    input.focus();
+    err.style.display='block';
+    inp.value=''; inp.focus();
   }
 }
 
-// ── CONFETTI ──────────────────────────────────────────
+function showFinal() {
+  // Anime l'apparition des mots un par un
+  const fpw = document.getElementById('fp-words');
+  fpw.innerHTML = PHRASE.map(w => `<span class="fp-word">${w}</span>`).join('');
+  confetti(); confetti();
+  showS('s-final');
+  // Déclenche l'animation mot par mot
+  const words = fpw.querySelectorAll('.fp-word');
+  words.forEach((w, idx) => {
+    setTimeout(() => {
+      w.classList.add('show');
+      if (idx === words.length - 1) { setTimeout(confetti, 100); }
+    }, 300 + idx * 350);
+  });
+}
+
+// ══════════════════════════════════════════════════
+// CONFETTI
+// ══════════════════════════════════════════════════
 function confetti() {
   const colors = ['#f2a4a4','#d97070','#d4a24c','#c96a3a','#f5e0d3','#fde8e8','#fff0c0'];
-  const cont = document.getElementById('confetti-container');
+  const cw = document.getElementById('cw');
   for (let n = 0; n < 52; n++) {
     const p = document.createElement('div');
-    p.className = 'confetti-piece';
-    p.style.cssText = `
-      left: ${Math.random() * 100}%;
-      width: ${6 + Math.random() * 6}px;
-      height: ${6 + Math.random() * 6}px;
-      background: ${colors[Math.floor(Math.random() * colors.length)]};
-      border-radius: ${Math.random() > 0.5 ? '50%' : '2px'};
-      animation-duration: ${1.2 + Math.random() * 1.2}s;
-      animation-delay: ${Math.random() * 0.4}s;
-      opacity: ${0.7 + Math.random() * 0.3};
-    `;
-    cont.appendChild(p);
-    setTimeout(() => p.remove(), 2500);
+    p.className = 'cp';
+    const size = 6 + Math.random()*7;
+    p.style.cssText = `left:${Math.random()*100}%;width:${size}px;height:${size}px;background:${colors[Math.floor(Math.random()*colors.length)]};border-radius:${Math.random()>.5?'50%':'2px'};animation-duration:${1.3+Math.random()*1.2}s;animation-delay:${Math.random()*.35}s;opacity:${0.7+Math.random()*.3};`;
+    cw.appendChild(p);
+    setTimeout(()=>p.remove(), 2600);
   }
 }
 
-// ── TOUCHE ENTRÉE ─────────────────────────────────────
+// ══════════════════════════════════════════════════
+// TOUCHE ENTRÉE
+// ══════════════════════════════════════════════════
 document.addEventListener('keydown', e => {
   if (e.key !== 'Enter') return;
   const active = document.querySelector('.screen.active');
-  if (active) { const btn = active.querySelector('.btn'); if (btn) btn.click(); }
+  if (active) { const btn = active.querySelector('.btn'); if(btn) btn.click(); }
 });
 </script>
 </body>
