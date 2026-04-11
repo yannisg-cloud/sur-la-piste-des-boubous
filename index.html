@@ -239,13 +239,6 @@ p {
   display: none;
   font-style: italic;
 }
-.hint-count {
-  font-size: 0.78rem;
-  color: var(--gold);
-  margin-top: 0.4rem;
-  display: none;
-  font-style: italic;
-}
 
 /* ── Buttons ── */
 .btn {
@@ -309,6 +302,55 @@ p {
   margin: 0.8rem 0 1.2rem;
 }
 
+/* ── Phrase reveal ── */
+.phrase-reveal-wrap {
+  margin: 1.2rem 0 1rem;
+  padding: 1rem 1.2rem;
+  background: var(--gold-light);
+  border: 1.5px solid #e8c878;
+  border-radius: 14px;
+  text-align: left;
+}
+.phrase-reveal-label {
+  font-size: 0.6rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--brown-mid);
+  margin-bottom: 0.7rem;
+  font-weight: 500;
+}
+.phrase-words {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+.p-word {
+  font-family: 'Fraunces', serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding: 0.28rem 0.65rem;
+  border-radius: 8px;
+}
+.p-word.revealed {
+  background: var(--terra);
+  color: #fff;
+}
+.p-word.new-word {
+  background: var(--rose-deep);
+  color: #fff;
+  animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+  box-shadow: 0 0 0 3px var(--rose-light);
+}
+.p-word.hidden {
+  background: #e8d0c0;
+  color: #c0a090;
+  min-width: 40px;
+  text-align: center;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+}
+
 /* ── Final screen ── */
 .final-wrap { text-align: center; }
 .final-boubous {
@@ -330,13 +372,23 @@ p {
 .boubou-lg-2 { background: var(--terra-light); color: var(--terra); border: 2px solid var(--terra); }
 .heart-lg { font-size: 1.8rem; animation: heartbeat 1.5s ease-in-out infinite; }
 .final-wrap h1 { font-size: 2rem; margin-bottom: 1rem; }
+.final-question {
+  font-family: 'Fraunces', serif;
+  font-size: 2.2rem;
+  font-weight: 600;
+  font-style: italic;
+  color: var(--terra);
+  margin: 1.2rem 0;
+  line-height: 1.3;
+  animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.2s both;
+}
 .final-wrap .tagline {
   font-family: 'Fraunces', serif;
   font-style: italic;
-  font-size: 1.2rem;
-  color: var(--terra);
-  margin-top: 1.5rem;
-  line-height: 1.5;
+  font-size: 1.15rem;
+  color: var(--brown-mid);
+  margin-top: 1.2rem;
+  line-height: 1.6;
 }
 
 /* ── Confetti ── */
@@ -359,7 +411,7 @@ p {
   to { transform: translateY(110vh) rotate(720deg); opacity: 0; }
 }
 
-/* ── Decorative dots background ── */
+/* ── Decorative dots ── */
 .deco {
   position: fixed;
   border-radius: 50%;
@@ -387,35 +439,35 @@ p {
     <div class="boubou boubou-2">B</div>
     <span class="boubou-label">Sur la trace des Boubous</span>
   </div>
-  <h1>Bienvenue dans le jeu des <em>Boubous</em>&nbsp;!</h1>
-  <p>Plusieurs indices se cachent dans des lieux que tu connais bien. À chaque étape, une énigme te fera deviner un lieu — puis sur place, cherche le mot de code caché.</p>
-  <p>Mais d'abord, prouve que c'est bien toi…</p>
+  <h1>Bienvenue dans le jeu <em>Sur la trace des Boubous</em>&nbsp;!</h1>
+  <p>Plusieurs indices se cachent dans des lieux que tu connais bien. À chaque étape, tu devras te rendre sur un lieu bien connu pour y trouver la réponse à une énigme. Une fois que tu as trouvé la réponse, entre-la dans le champ dédié, et ainsi de suite.</p>
+  <p>Voyons si tu as bien compris le principe&nbsp;: pour connaître la prochaine étape, entre ton prénom.</p>
   <div class="input-wrap">
-    <label>Quel est ton prénom ?</label>
+    <label>Ton prénom</label>
     <input type="text" id="input-prenom" placeholder="Ton prénom…" autocomplete="off" />
     <div class="error-msg" id="err-prenom">Hmm, ce n'est pas le bon prénom… 🤔</div>
   </div>
-  <button class="btn" onclick="validatePrenom()">C'est moi →</button>
+  <button class="btn" onclick="validatePrenom()">Valider →</button>
 </div>
 
 <!-- ── TUTO ── -->
 <div class="screen" id="s-tuto">
   <div class="success-wrap">
-    <div class="check-circle check-rose" style="font-size:1.8rem;">✓</div>
-    <h1>Bravo, c'est bien toi !</h1>
-    <div style="width:40px;height:2px;background:var(--rose);margin:1rem auto 1.2rem;border-radius:2px;"></div>
-    <p>Tu as compris comment ça marche. À chaque étape : trouve le lieu, rends-y toi, et cherche le mot de code caché sur place.</p>
-    <p>Prête à partir à l'aventure&nbsp;?</p>
+    <div class="check-circle check-rose">✓</div>
+    <h1>Bravo&nbsp;! Bonne réponse&nbsp;!</h1>
+    <div style="width:40px;height:2px;background:var(--rose);margin:1rem auto 1.5rem;border-radius:2px;"></div>
+    <p>Tu as maintenant compris comment fonctionne le jeu de piste des Boubous. À chaque étape, tu devras entrer le mot de code pour passer à l'étape suivante.</p>
+    <p>Prête à partir à l'aventure&nbsp;? C'est parti&nbsp;!</p>
     <div style="display:flex;justify-content:center;gap:8px;margin:1.5rem 0;">
       <div class="boubou boubou-1" style="width:28px;height:28px;font-size:11px;">B</div>
       <span style="font-size:1.2rem;animation:heartbeat 1.8s ease-in-out infinite;display:inline-block;color:var(--rose-deep);">♥</span>
       <div class="boubou boubou-2" style="width:28px;height:28px;font-size:11px;">B</div>
     </div>
-    <button class="btn" onclick="showStep(0,'guess')" style="max-width:280px;margin:0 auto;">C'est parti ! →</button>
+    <button class="btn" onclick="showStep(0)" style="max-width:280px;margin:0 auto;">C'est parti&nbsp;! →</button>
   </div>
 </div>
 
-<!-- ── ÉTAPES ── -->
+<!-- ── ÉTAPES (générées par JS) ── -->
 <div id="steps-container"></div>
 
 <!-- ── FINAL ── -->
@@ -427,162 +479,251 @@ p {
       <div class="boubou-lg boubou-lg-2">B</div>
     </div>
     <h1>Tu as tout trouvé&nbsp;!</h1>
-    <div style="width:40px;height:2px;background:var(--rose);margin:1rem auto 1.2rem;border-radius:2px;"></div>
-    <p>Le jeu des Boubous est terminé.</p>
-    <p class="tagline">Maintenant lève les yeux.</p>
+    <div style="width:40px;height:2px;background:var(--rose);margin:1rem auto 1rem;border-radius:2px;"></div>
+    <p>Tu as reconstitué la phrase…</p>
+    <div class="final-question">Veux-tu m'épouser&nbsp;?</div>
+    <p class="tagline">Maintenant, lève les yeux.&nbsp;💍</p>
   </div>
 </div>
 
 <script>
-// ── DONNÉES ──────────────────────────────────────────────────────────────────
+// ────────────────────────────────────────────────────
+// DONNÉES
+// ────────────────────────────────────────────────────
+
+// Les 4 mots à révéler, dans l'ordre
+const PHRASE_WORDS = ["Veux", "tu", "m'", "épouser"];
+
 const STEPS = [
+  // ── Étape 1 : Bistro Père (2 phases : confirmation lieu + énigme sur place)
   {
-    enigma: "[ÉNIGME À ÉCRIRE] — Indice qui fait deviner le Bistro Père.",
-    accepted: ["bistro pere","bistro","le bistro pere","le bistro","bistro-pere","bistropere","chez bistro"],
+    num: 1,
+    hasTwoPhases: true,
+
+    // Phase A : confirmation du lieu
+    clue: "Pour commencer, rends-toi au <strong>Bistro Père</strong>.",
+    clueLabel: "Indice",
+    clueInputLabel: "Nom du lieu",
+    clueInputPlaceholder: "Entre le nom du lieu…",
+    clueAccepted: ["bistro pere","bistro père","le bistro pere","le bistro père","bistro"],
+
+    // Phase B : énigme sur place
+    onsiteEnigma: "Juste à côté du Bistro Père, il y a un ostéopathe qui s'appelle <strong>Hippolyte Zabukovec</strong>, et un salon de coiffure qui s'appelle <strong>Coiffure et Tendance</strong>.<br><br>Si Hippolyte voulait se faire une coiffure tendance un samedi, jusqu'à quelle heure pourrait-il se faire coiffer&nbsp;?",
+    onsiteCode: ["17h", "17h00", "17:00", "dix-sept heures", "17"],  // ⚠️ À VÉRIFIER avec Yannis
+
     locationName: "Bistro Père",
-    onsiteChallenge: "[DÉFI SUR PLACE À DÉFINIR]",
-    onsiteCode: ["bistro pere","bistro"],
-    successMsg: "Le Bistro Père… notre tout premier dîner ensemble. Tu t'en souviens ?",
-    emoji: "🍽️"
+    emoji: "🍽️",
+    revealIndex: 0,  // révèle PHRASE_WORDS[0] = "Veux"
+    successMsg: "Le Bistro Père… notre tout premier dîner ensemble. Tu t'en souviens&nbsp;?"
   },
+
+  // ── Étape 2 : Place de la Réunion
   {
-    enigma: "[ÉNIGME À ÉCRIRE] — Indice qui fait deviner la Place de la Réunion.",
-    accepted: ["cure","la cure","place de la reunion","place reunion","la reunion","place de reunion"],
+    num: 2,
+    hasTwoPhases: false,
+    clue: "Rends-toi <strong>place de la Réunion</strong>. Sur place, tu trouveras le mot de code.",
+    clueLabel: "Indice",
+    clueInputLabel: "Mot de code",
+    clueInputPlaceholder: "Entre le mot de code…",
+    clueAccepted: ["cure", "la cure"],
     locationName: "Place de la Réunion",
-    onsiteChallenge: "[DÉFI SUR PLACE À DÉFINIR]",
-    onsiteCode: ["cure"],
-    successMsg: "La cure… tu y venais si souvent au début. Ce petit appart avait quelque chose de magique.",
-    emoji: "🏡"
+    emoji: "🏡",
+    revealIndex: 1,  // "tu"
+    successMsg: "La Cure… ce petit appartement qui avait quelque chose de magique."
   },
+
+  // ── Étape 3 : L'Autobus
   {
-    enigma: "[ÉNIGME À ÉCRIRE] — Indice qui fait deviner L'Autobus.",
-    accepted: ["autobus","l autobus","lautobus","bar autobus","le autobus","bar l autobus"],
+    num: 3,
+    hasTwoPhases: false,
+    clue: "Direction <strong>L'Autobus</strong>. Le mot de code t'y attend.",
+    clueLabel: "Indice",
+    clueInputLabel: "Mot de code",
+    clueInputPlaceholder: "Entre le mot de code…",
+    clueAccepted: ["autobus", "l autobus", "lautobus", "l'autobus"],
     locationName: "L'Autobus",
-    onsiteChallenge: "[DÉFI SUR PLACE À DÉFINIR]",
-    onsiteCode: ["autobus"],
-    successMsg: "Ce soir à l'improviste… tu es venue sans prévenir, et c'était parfait.",
-    emoji: "🚌"
+    emoji: "🚌",
+    revealIndex: 2,  // "m'"
+    successMsg: "L'Autobus… ce soir où tu es venue à l'improviste. C'était parfait."
   },
+
+  // ── Étape 4 : Passage du Jeu de Boules
   {
-    enigma: "[ÉNIGME À ÉCRIRE] — Indice qui fait deviner le Passage du Jeu de Boules.",
-    accepted: ["jeu de boules","passage jeu de boules","passage du jeu de boules","le passage du jeu de boules","jeu de boule","passage jeu de boule","passage des jeux de boules"],
+    num: 4,
+    hasTwoPhases: false,
+    clue: "Rends-toi au <strong>Passage du Jeu de Boules</strong>. Le mot de code s'y cache.",
+    clueLabel: "Indice",
+    clueInputLabel: "Mot de code",
+    clueInputPlaceholder: "Entre le mot de code…",
+    clueAccepted: ["jeu de boules","passage jeu de boules","passage du jeu de boules","jeu de boule","passage des jeux de boules"],
     locationName: "Passage du Jeu de Boules",
-    onsiteChallenge: "[DÉFI SUR PLACE À DÉFINIR]",
-    onsiteCode: ["jeu de boules","jeu de boule"],
-    successMsg: "Ce passage, ce soir-là après l'Autobus… un de ces moments qu'on n'oublie pas.",
-    emoji: "🎳"
+    emoji: "🎳",
+    revealIndex: 3,  // "épouser"
+    successMsg: "Ce passage, ce soir-là après l'Autobus… un de ces moments qu'on n'oublie pas."
   },
+
+  // ── Étape 5 : L'Échiquier (étape finale)
   {
-    enigma: "[ÉNIGME À ÉCRIRE] — Indice qui fait deviner L'Échiquier.",
-    accepted: ["echiquier","l echiquier","lechiquier","restaurant echiquier","restaurant l echiquier"],
+    num: 5,
+    hasTwoPhases: false,
+    clue: "Dernière étape&nbsp;: rends-toi à <strong>L'Échiquier</strong>. Le mot de code final t'y attend.",
+    clueLabel: "Indice",
+    clueInputLabel: "Mot de code",
+    clueInputPlaceholder: "Entre le mot de code…",
+    clueAccepted: ["echiquier","l echiquier","lechiquier","échiquier","l'échiquier","l echiquier"],
     locationName: "L'Échiquier",
-    onsiteChallenge: "[DÉFI SUR PLACE À DÉFINIR]",
-    onsiteCode: ["echiquier"],
-    successMsg: null,
-    emoji: "♟️"
+    emoji: "♟️",
+    revealIndex: null,  // étape finale, pas de nouveau mot
+    successMsg: null
   }
 ];
 
 const TOTAL = STEPS.length;
 
-// ── GÉNÉRATION ───────────────────────────────────────────────────────────────
+// ────────────────────────────────────────────────────
+// GÉNÉRATION DES ÉCRANS
+// ────────────────────────────────────────────────────
+
 const container = document.getElementById('steps-container');
 
-STEPS.forEach((step, i) => {
-  const num = i + 1;
-  const isLast = i === TOTAL - 1;
-
-  // Progress bar
-  let prog = '';
+function buildProgress(currentIndex) {
+  let html = '';
   for (let d = 0; d < TOTAL; d++) {
-    prog += `<div class="p-dot${d < i ? ' done' : d === i ? ' current' : ''}"></div>`;
-    if (d < TOTAL - 1) prog += `<div class="p-line${d < i ? ' done' : ''}"></div>`;
+    const cls = d < currentIndex ? ' done' : d === currentIndex ? ' current' : '';
+    html += `<div class="p-dot${cls}"></div>`;
+    if (d < TOTAL - 1) html += `<div class="p-line${d < currentIndex ? ' done' : ''}"></div>`;
+  }
+  return html;
+}
+
+function buildPhraseHTML(upToRevealIndex, newRevealIndex) {
+  // upToRevealIndex : combien de mots sont déjà révélés AVANT ce succès
+  // newRevealIndex  : l'index du mot NEW (surligné en rose) — null si pas de nouveau mot
+  let words = '';
+  for (let w = 0; w < PHRASE_WORDS.length; w++) {
+    if (w < upToRevealIndex) {
+      words += `<span class="p-word revealed">${PHRASE_WORDS[w]}</span>`;
+    } else if (w === newRevealIndex) {
+      words += `<span class="p-word new-word">${PHRASE_WORDS[w]}</span>`;
+    } else {
+      words += `<span class="p-word hidden">···</span>`;
+    }
+  }
+  return `
+    <div class="phrase-reveal-wrap">
+      <div class="phrase-reveal-label">La phrase jusqu'ici</div>
+      <div class="phrase-words">${words}</div>
+    </div>`;
+}
+
+STEPS.forEach((step, i) => {
+  const isLast = i === TOTAL - 1;
+  const prog = buildProgress(i);
+
+  // ── Phase A : écran d'énigme / indice
+  const screenA = document.createElement('div');
+  screenA.className = 'screen';
+  screenA.id = `s-clue-${i}`;
+
+  // Phrase déjà révélée (avant cette étape)
+  const wordsRevealedBefore = i; // étapes 0..i-1 ont chacune révélé un mot (sauf la dernière)
+  const phraseHTMLTop = wordsRevealedBefore > 0 ? buildPhraseHTML(wordsRevealedBefore, null) : '';
+
+  screenA.innerHTML = `
+    <div class="progress">${prog}</div>
+    <div class="step-label">Étape ${step.num} sur ${TOTAL}</div>
+    ${phraseHTMLTop}
+    <span class="phase-badge badge-guess">🔍 ${step.hasTwoPhases ? 'Confirme le lieu' : 'Trouve le mot de code'}</span>
+    <div class="card">
+      <div class="card-label">${step.clueLabel}</div>
+      <p>${step.clue}</p>
+    </div>
+    <div class="input-wrap">
+      <label>${step.clueInputLabel}</label>
+      <input type="text" id="ia-${i}" placeholder="${step.clueInputPlaceholder}" autocomplete="off" />
+      <div class="error-msg" id="ea-${i}">Ce n'est pas ça… cherche encore&nbsp;! 🤔</div>
+    </div>
+    <button class="btn" onclick="validateClue(${i})">Valider →</button>
+  `;
+  container.appendChild(screenA);
+
+  if (step.hasTwoPhases) {
+    // ── Confirmation lieu (écran intermédiaire)
+    const screenConf = document.createElement('div');
+    screenConf.className = 'screen';
+    screenConf.id = `s-confirm-${i}`;
+    screenConf.innerHTML = `
+      <div class="success-wrap">
+        <div class="check-circle check-rose">✓</div>
+        <h1>Bonne réponse&nbsp;!</h1>
+        <div style="width:40px;height:2px;background:var(--rose);margin:1rem auto 1rem;border-radius:2px;"></div>
+        <p>Direction&nbsp;:</p>
+        <div class="location-pill">${step.emoji} ${step.locationName}</div>
+        <p style="font-size:0.92rem;">Rends-toi là-bas, et une fois sur place, clique sur le bouton ci-dessous.</p>
+        <button class="btn" style="max-width:280px;margin:1.5rem auto 0;" onclick="showScreen('s-onsite-${i}')">J'y suis&nbsp;→</button>
+      </div>
+    `;
+    container.appendChild(screenConf);
+
+    // ── Phase B : énigme sur place
+    const screenB = document.createElement('div');
+    screenB.className = 'screen';
+    screenB.id = `s-onsite-${i}`;
+    screenB.innerHTML = `
+      <div class="progress">${prog}</div>
+      <div class="step-label">Étape ${step.num} sur ${TOTAL} · Sur place</div>
+      ${phraseHTMLTop}
+      <span class="phase-badge badge-onsite">📍 Tu y es&nbsp;!</span>
+      <h2>${step.locationName}</h2>
+      <h1>Résous l'énigme</h1>
+      <div class="card card-onsite">
+        <div class="card-label">Énigme</div>
+        <p>${step.onsiteEnigma}</p>
+      </div>
+      <div class="input-wrap">
+        <label>Ta réponse</label>
+        <input type="text" id="ib-${i}" placeholder="Entre ta réponse…" autocomplete="off" />
+        <div class="error-msg" id="eb-${i}">Ce n'est pas ça… cherche encore&nbsp;!</div>
+      </div>
+      <button class="btn" onclick="validateOnsite(${i})">Valider →</button>
+    `;
+    container.appendChild(screenB);
   }
 
-  // — Phase 1 : Devinette
-  const g = document.createElement('div');
-  g.className = 'screen'; g.id = `s-guess-${i}`;
-  g.innerHTML = `
-    <div class="progress">${prog}</div>
-    <div class="step-label">Étape ${num} sur ${TOTAL} · Trouve le lieu</div>
-    <span class="phase-badge badge-guess">🔍 Quelle est la destination ?</span>
-    <h1>Où dois-tu aller&nbsp;?</h1>
-    <div class="card">
-      <div class="card-label">Énigme</div>
-      <p>${step.enigma}</p>
-    </div>
-    <div class="input-wrap">
-      <label>Nom du lieu</label>
-      <input type="text" id="ig-${i}" placeholder="Entre le nom du lieu…" autocomplete="off" />
-      <div class="error-msg" id="eg-${i}">Ce n'est pas ça… cherche encore ! 🤔</div>
-      <div class="hint-count" id="hc-${i}"></div>
-    </div>
-    <button class="btn" onclick="validateGuess(${i})">Valider →</button>
-  `;
-  container.appendChild(g);
-
-  // — Confirmation du lieu
-  const c = document.createElement('div');
-  c.className = 'screen'; c.id = `s-confirm-${i}`;
-  c.innerHTML = `
-    <div class="success-wrap">
-      <div class="check-circle check-rose" style="font-size:1.6rem;">✓</div>
-      <h1>C'est bien ça&nbsp;!</h1>
-      <div style="width:40px;height:2px;background:var(--rose);margin:1rem auto 1rem;border-radius:2px;"></div>
-      <p>Direction</p>
-      <div class="location-pill">${step.emoji} ${step.locationName}</div>
-      <p style="font-size:0.92rem;">Rends-toi là-bas et cherche l'indice caché sur place.</p>
-      <button class="btn" style="max-width:280px;margin:1.5rem auto 0;" onclick="showStep(${i},'onsite')">J'y suis →</button>
-    </div>
-  `;
-  container.appendChild(c);
-
-  // — Phase 2 : Sur place
-  const o = document.createElement('div');
-  o.className = 'screen'; o.id = `s-onsite-${i}`;
-  o.innerHTML = `
-    <div class="progress">${prog}</div>
-    <div class="step-label">Étape ${num} sur ${TOTAL} · Sur place</div>
-    <span class="phase-badge badge-onsite">📍 Tu y es !</span>
-    <h2>${step.locationName}</h2>
-    <h1>Trouve le mot de code</h1>
-    <div class="card card-onsite">
-      <div class="card-label">Défi sur place</div>
-      <p>${step.onsiteChallenge}</p>
-    </div>
-    <div class="input-wrap">
-      <label>Mot de code</label>
-      <input type="text" id="io-${i}" placeholder="Entre le mot de code…" autocomplete="off" />
-      <div class="error-msg" id="eo-${i}">Ce n'est pas le bon code… cherche encore !</div>
-    </div>
-    <button class="btn" onclick="validateOnsite(${i})">Valider →</button>
-  `;
-  container.appendChild(o);
-
-  // — Succès inter-étape
+  // ── Écran de succès (inter-étape ou final)
   if (!isLast) {
-    const s = document.createElement('div');
-    s.className = 'screen'; s.id = `s-success-${i}`;
-    s.innerHTML = `
+    const revIdx = step.revealIndex;
+    const wordsRevealedAfter = revIdx !== null ? revIdx : wordsRevealedBefore;
+    const newWordPhraseHTML = buildPhraseHTML(wordsRevealedAfter, revIdx);
+
+    const screenSuccess = document.createElement('div');
+    screenSuccess.className = 'screen';
+    screenSuccess.id = `s-success-${i}`;
+    screenSuccess.innerHTML = `
       <div class="success-wrap">
-        <div class="check-circle check-green" style="font-size:1.6rem;">✓</div>
+        <div class="check-circle check-green">✓</div>
         <h1>Bien joué&nbsp;!</h1>
-        <div style="width:40px;height:2px;background:#8bc34a;margin:1rem auto 1.2rem;border-radius:2px;"></div>
-        <p>${step.successMsg}</p>
+        <div style="width:40px;height:2px;background:#8bc34a;margin:1rem auto 1rem;border-radius:2px;"></div>
+        ${revIdx !== null ? `
+          <p style="font-size:0.85rem;margin-bottom:0.4rem;">Nouveau mot dévoilé&nbsp;:</p>
+          ${newWordPhraseHTML}
+        ` : ''}
+        <p style="font-size:0.92rem;margin-top:0.8rem;color:var(--text-muted);">${step.successMsg || ''}</p>
         <div style="display:flex;justify-content:center;gap:6px;margin:1.2rem 0;">
           <div class="boubou boubou-1" style="width:26px;height:26px;font-size:10px;">B</div>
           <span style="font-size:1.1rem;color:var(--rose-deep);animation:heartbeat 1.8s ease-in-out infinite;display:inline-block;">♥</span>
           <div class="boubou boubou-2" style="width:26px;height:26px;font-size:10px;">B</div>
         </div>
-        <button class="btn" style="max-width:280px;margin:0 auto;" onclick="showStep(${i+1},'guess')">Étape suivante →</button>
+        <button class="btn" style="max-width:280px;margin:0 auto;" onclick="showStep(${i + 1})">Étape suivante →</button>
       </div>
     `;
-    container.appendChild(s);
+    container.appendChild(screenSuccess);
   }
 });
 
-// ── LOGIQUE ───────────────────────────────────────────────────────────────────
-let wrongCounts = {};
+// ────────────────────────────────────────────────────
+// LOGIQUE
+// ────────────────────────────────────────────────────
 
 function norm(s) {
   return s.trim().toLowerCase()
@@ -598,10 +739,8 @@ function showScreen(id) {
   if (el) { el.classList.add('active'); window.scrollTo(0, 0); }
 }
 
-function showStep(i, phase) {
-  if (phase === 'guess') showScreen(`s-guess-${i}`);
-  else if (phase === 'confirm') showScreen(`s-confirm-${i}`);
-  else if (phase === 'onsite') showScreen(`s-onsite-${i}`);
+function showStep(i) {
+  showScreen(`s-clue-${i}`);
 }
 
 function validatePrenom() {
@@ -616,68 +755,78 @@ function validatePrenom() {
   }
 }
 
-function validateGuess(i) {
-  const input = document.getElementById(`ig-${i}`);
-  const err = document.getElementById(`eg-${i}`);
-  const hc = document.getElementById(`hc-${i}`);
+function validateClue(i) {
+  const input = document.getElementById(`ia-${i}`);
+  const err = document.getElementById(`ea-${i}`);
   const v = norm(input.value);
-  const ok = STEPS[i].accepted.map(norm);
+  const ok = STEPS[i].clueAccepted.map(norm);
+
   if (ok.includes(v)) {
-    err.style.display = 'none'; hc.style.display = 'none';
-    wrongCounts[i] = 0;
+    err.style.display = 'none';
     confetti();
-    showScreen(`s-confirm-${i}`);
-  } else {
-    wrongCounts[i] = (wrongCounts[i] || 0) + 1;
-    err.style.display = 'block';
-    if (wrongCounts[i] >= 3) {
-      hc.style.display = 'block';
-      hc.textContent = `${wrongCounts[i]} tentative${wrongCounts[i]>1?'s':''}… tu y es presque, continue !`;
+    if (STEPS[i].hasTwoPhases) {
+      showScreen(`s-confirm-${i}`);
+    } else {
+      // Étape simple : code trouvé sur place → succès direct
+      if (i === TOTAL - 1) {
+        confetti(); confetti();
+        showScreen('s-final');
+      } else {
+        showScreen(`s-success-${i}`);
+      }
     }
-    input.value = ''; input.focus();
+  } else {
+    err.style.display = 'block';
+    input.value = '';
+    input.focus();
   }
 }
 
 function validateOnsite(i) {
-  const input = document.getElementById(`io-${i}`);
-  const err = document.getElementById(`eo-${i}`);
+  const input = document.getElementById(`ib-${i}`);
+  const err = document.getElementById(`eb-${i}`);
   const v = norm(input.value);
   const ok = STEPS[i].onsiteCode.map(norm);
-  const isLast = i === TOTAL - 1;
+
   if (ok.includes(v)) {
     err.style.display = 'none';
     confetti();
-    if (isLast) showScreen('s-final');
-    else showScreen(`s-success-${i}`);
+    if (i === TOTAL - 1) {
+      confetti(); confetti();
+      showScreen('s-final');
+    } else {
+      showScreen(`s-success-${i}`);
+    }
   } else {
     err.style.display = 'block';
-    input.value = ''; input.focus();
+    input.value = '';
+    input.focus();
   }
 }
 
-// ── CONFETTI ──────────────────────────────────────────────────────────────────
+// ── CONFETTI ──────────────────────────────────────────
 function confetti() {
   const colors = ['#f2a4a4','#d97070','#d4a24c','#c96a3a','#f5e0d3','#fde8e8','#fff0c0'];
-  const container = document.getElementById('confetti-container');
-  for (let n = 0; n < 48; n++) {
+  const cont = document.getElementById('confetti-container');
+  for (let n = 0; n < 52; n++) {
     const p = document.createElement('div');
     p.className = 'confetti-piece';
     p.style.cssText = `
-      left: ${Math.random()*100}%;
-      width: ${6 + Math.random()*6}px;
-      height: ${6 + Math.random()*6}px;
-      background: ${colors[Math.floor(Math.random()*colors.length)]};
+      left: ${Math.random() * 100}%;
+      width: ${6 + Math.random() * 6}px;
+      height: ${6 + Math.random() * 6}px;
+      background: ${colors[Math.floor(Math.random() * colors.length)]};
       border-radius: ${Math.random() > 0.5 ? '50%' : '2px'};
-      animation-duration: ${1.2 + Math.random()*1.2}s;
-      animation-delay: ${Math.random()*0.4}s;
-      opacity: ${0.7 + Math.random()*0.3};
+      animation-duration: ${1.2 + Math.random() * 1.2}s;
+      animation-delay: ${Math.random() * 0.4}s;
+      opacity: ${0.7 + Math.random() * 0.3};
     `;
-    container.appendChild(p);
+    cont.appendChild(p);
     setTimeout(() => p.remove(), 2500);
   }
 }
 
-// ── ENTER KEY ─────────────────────────────────────────────────────────────────
+// ── TOUCHE ENTRÉE ─────────────────────────────────────
 document.addEventListener('keydown', e => {
   if (e.key !== 'Enter') return;
   const active = document.querySelector('.screen.active');
