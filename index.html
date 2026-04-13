@@ -45,10 +45,26 @@ body::before {
     radial-gradient(ellipse 50% 50% at 90% 80%, #f5e0d322 0%, transparent 60%);
   pointer-events: none; z-index: 0;
 }
-.deco { position: fixed; border-radius: 50%; pointer-events: none; z-index: 0; opacity: 0.18; }
+.deco { position: fixed; border-radius: 50%; pointer-events: none; z-index: 0; opacity: 0.15; }
 .deco-1 { width: 200px; height: 200px; background: var(--rose-light); top: -70px; right: -70px; }
 .deco-2 { width: 140px; height: 140px; background: var(--terra-light); bottom: 30px; left: -50px; }
 .deco-3 { width: 70px; height: 70px; background: var(--gold-light); bottom: 180px; right: 16px; }
+
+/* ── Floating cookies ── */
+.cookie-bg { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+.cookie-float {
+  position: absolute;
+  opacity: 0.12;
+  animation: floatCookie linear infinite;
+  font-size: 1.4rem;
+  user-select: none;
+}
+@keyframes floatCookie {
+  0%   { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+  10%  { opacity: 0.12; }
+  90%  { opacity: 0.12; }
+  100% { transform: translateY(-120px) rotate(360deg); opacity: 0; }
+}
 
 /* ── Screens ── */
 .screen {
@@ -60,14 +76,11 @@ body::before {
 }
 .screen.active { display: flex; }
 
-/* ── Mascotte ── */
-.boubous { display: flex; align-items: center; gap: 6px; margin-bottom: 2rem; }
-.bb { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; font-family: 'Fraunces', serif; flex-shrink: 0; }
-.bb1 { background: var(--rose); color: #fff; }
-.bb2 { background: var(--terra-light); color: var(--terra); border: 2px solid var(--terra); }
-.bb-heart { font-size: 13px; color: var(--rose-deep); animation: hb 1.8s ease-in-out infinite; }
-.bb-label { font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-muted); margin-left: 4px; }
-@keyframes hb { 0%,100%{transform:scale(1)} 50%{transform:scale(1.3)} }
+/* ── Koala mascot SVG ── */
+.mascot { display: flex; align-items: center; gap: 8px; margin-bottom: 2rem; }
+.mascot-label { font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-muted); margin-left: 2px; }
+.koala-heart { font-size: 14px; color: var(--rose-deep); animation: hb 1.8s ease-in-out infinite; display: inline-block; }
+@keyframes hb { 0%,100%{transform:scale(1)} 50%{transform:scale(1.35)} }
 
 /* ── Typo ── */
 h1 { font-family: 'Fraunces', serif; font-size: 2rem; font-weight: 600; line-height: 1.2; color: var(--brown); margin-bottom: 1rem; }
@@ -85,16 +98,40 @@ p { font-size: 0.97rem; line-height: 1.75; color: var(--text-muted); margin-bott
 .pl.done { background: var(--gold); }
 
 /* ── Cards ── */
-.card {
-  background: var(--warm-white); border-radius: 16px;
-  padding: 1.3rem 1.4rem; margin: 1rem 0;
-  border: 1px solid #f0ddd0; position: relative; overflow: hidden;
-}
+.card { background: var(--warm-white); border-radius: 16px; padding: 1.3rem 1.4rem; margin: 1rem 0; border: 1px solid #f0ddd0; position: relative; overflow: hidden; }
 .card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--rose), var(--terra), var(--gold)); }
 .card.green::before { background: linear-gradient(90deg, #8bc34a, #4caf50, #66bb6a); }
 .card-lbl { font-size: 0.58rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--terra); margin-bottom: 0.6rem; font-weight: 500; }
 .card.green .card-lbl { color: var(--green); }
 .card p { margin-bottom: 0; color: var(--text); font-size: 0.95rem; line-height: 1.65; }
+
+/* ── Indices progressifs ── */
+.hints-section { margin-top: 0.8rem; }
+.hint-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: transparent; border: 1.5px dashed #e0c090;
+  border-radius: 20px; padding: 0.4rem 0.9rem;
+  font-family: 'DM Sans', sans-serif; font-size: 0.78rem;
+  color: var(--gold); cursor: pointer; transition: all 0.2s;
+  margin-top: 0.5rem;
+}
+.hint-btn:hover { background: var(--gold-light); border-color: var(--gold); }
+.hint-btn:disabled { opacity: 0.4; cursor: default; }
+.hint-cards { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.6rem; }
+.hint-card {
+  background: var(--gold-light);
+  border: 1px solid #e8c878;
+  border-radius: 10px;
+  padding: 0.7rem 0.9rem;
+  font-size: 0.88rem;
+  color: var(--brown-mid);
+  font-style: italic;
+  display: none;
+  animation: fadeSlide 0.35s ease;
+}
+.hint-card.show { display: block; }
+@keyframes fadeSlide { from{opacity:0;transform:translateY(-6px)} to{opacity:1;transform:translateY(0)} }
+.hint-counter { font-size: 0.7rem; color: var(--text-muted); margin-top: 0.4rem; font-style: italic; }
 
 /* ── Badge ── */
 .badge { display: inline-flex; align-items: center; gap: 5px; font-size: 0.67rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.3rem 0.75rem; border-radius: 20px; margin-bottom: 1.1rem; }
@@ -107,7 +144,7 @@ p { font-size: 0.97rem; line-height: 1.75; color: var(--text-muted); margin-bott
 .iw input { width: 100%; padding: 0.9rem 1.1rem; border: 2px solid #e8d0c0; border-radius: 12px; background: #fff; font-family: 'DM Sans', sans-serif; font-size: 1rem; color: var(--text); outline: none; transition: border-color 0.25s, box-shadow 0.25s; }
 .iw input:focus { border-color: var(--terra); box-shadow: 0 0 0 4px var(--terra-light); }
 .err { color: var(--rose-deep); font-size: 0.83rem; margin-top: 0.55rem; display: none; font-style: italic; }
-.hint { font-size: 0.76rem; color: var(--gold); margin-top: 0.4rem; display: none; font-style: italic; }
+.hint-wrong { font-size: 0.76rem; color: var(--gold); margin-top: 0.4rem; display: none; font-style: italic; }
 
 /* ── Boutons ── */
 .btn { display: block; width: 100%; padding: 1rem; background: var(--brown); color: var(--cream); border: none; border-radius: 12px; font-family: 'DM Sans', sans-serif; font-size: 0.86rem; font-weight: 500; letter-spacing: 0.08em; cursor: pointer; transition: background 0.2s, transform 0.1s; margin-top: 0.8rem; }
@@ -127,73 +164,30 @@ p { font-size: 0.97rem; line-height: 1.75; color: var(--text-muted); margin-bott
 .sep-green { background: #8bc34a; }
 .sep-gold { background: var(--gold); }
 
-/* ── Mot révélé (écran succès étape) ── */
-.word-reveal {
-  background: var(--terra-light);
-  border: 2px solid var(--terra);
-  border-radius: 16px;
-  padding: 1.1rem 1.5rem;
-  margin: 1.2rem auto;
-  max-width: 260px;
-  text-align: center;
-}
+/* ── Mot révélé ── */
+.word-reveal { background: var(--terra-light); border: 2px solid var(--terra); border-radius: 16px; padding: 1.1rem 1.5rem; margin: 1.2rem auto; max-width: 280px; text-align: center; }
 .wr-label { font-size: 0.58rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--terra); margin-bottom: 0.5rem; font-weight: 500; }
 .wr-word { font-family: 'Fraunces', serif; font-size: 2.2rem; font-weight: 600; color: var(--terra); animation: wordPop 0.6s cubic-bezier(0.175,0.885,0.32,1.275); }
 @keyframes wordPop { from{transform:scale(0.5) translateY(10px);opacity:0} to{transform:scale(1) translateY(0);opacity:1} }
 
-/* ── Collection de mots (sous le mot révélé) ── */
-.words-collected {
-  display: flex; flex-wrap: wrap; gap: 6px;
-  justify-content: center; margin: 0.8rem 0 1.2rem;
-}
-.wc-chip {
-  background: #fff;
-  border: 1.5px solid #e8d0c0;
-  border-radius: 20px;
-  padding: 0.25rem 0.75rem;
-  font-family: 'Fraunces', serif;
-  font-size: 0.95rem;
-  color: var(--brown-mid);
-  font-style: italic;
-}
+/* ── Collection de mots ── */
+.words-collected { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin: 0.8rem 0 1.2rem; }
+.wc-chip { background: #fff; border: 1.5px solid #e8d0c0; border-radius: 20px; padding: 0.25rem 0.75rem; font-family: 'Fraunces', serif; font-size: 0.95rem; color: var(--brown-mid); font-style: italic; }
 
 /* ── Location pill ── */
 .loc-pill { display: inline-block; background: var(--gold-light); border: 1.5px solid var(--gold); border-radius: 30px; padding: 0.45rem 1.1rem; font-family: 'Fraunces', serif; font-style: italic; font-size: 1.05rem; color: var(--brown); margin: 0.7rem 0 1rem; }
 
-/* ── Mini boubous ── */
-.mini-bb { display: flex; justify-content: center; align-items: center; gap: 6px; margin: 1rem 0; }
-.mbb { width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 600; font-family: 'Fraunces', serif; }
-.mbb1 { background: var(--rose); color: #fff; }
-.mbb2 { background: var(--terra-light); color: var(--terra); border: 1.5px solid var(--terra); }
-.mheart { font-size: 1rem; color: var(--rose-deep); animation: hb 1.8s ease-in-out infinite; }
+/* ── Mini koalas ── */
+.mini-koalas { display: flex; justify-content: center; align-items: center; gap: 6px; margin: 1rem 0; }
 
 /* ── Final phrase ── */
-.final-phrase {
-  margin: 1.5rem 0 1rem;
-  text-align: center;
-}
-.fp-words {
-  display: flex; flex-wrap: wrap; gap: 10px;
-  justify-content: center; align-items: baseline;
-  margin-bottom: 0.5rem;
-}
-.fp-word {
-  font-family: 'Fraunces', serif;
-  font-size: 2rem;
-  font-weight: 600;
-  color: var(--terra);
-  opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 0.5s, transform 0.5s;
-}
+.fp-words { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; align-items: baseline; margin: 1rem 0; }
+.fp-word { font-family: 'Fraunces', serif; font-size: 2rem; font-weight: 600; color: var(--terra); opacity: 0; transform: translateY(16px); transition: opacity 0.5s, transform 0.5s; }
 .fp-word.show { opacity: 1; transform: translateY(0); }
 
-/* ── Big boubous ── */
-.big-bb { display: flex; justify-content: center; align-items: center; gap: 10px; margin-bottom: 1.8rem; }
-.bbb { width: 54px; height: 54px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Fraunces', serif; font-size: 1.2rem; font-weight: 600; }
-.bbb1 { background: var(--rose); color: #fff; box-shadow: 0 4px 18px #f2a4a455; }
-.bbb2 { background: var(--terra-light); color: var(--terra); border: 2px solid var(--terra); }
-.big-heart { font-size: 1.9rem; animation: hb 1.5s ease-in-out infinite; }
+/* ── Big koalas final ── */
+.big-koalas { display: flex; justify-content: center; align-items: center; gap: 12px; margin-bottom: 1.8rem; }
+.big-heart { font-size: 1.9rem; animation: hb 1.5s ease-in-out infinite; display: inline-block; }
 
 /* ── Confetti ── */
 .confetti-wrap { position: fixed; top: 0; left: 0; right: 0; pointer-events: none; z-index: 999; overflow: hidden; height: 100vh; }
@@ -206,17 +200,38 @@ p { font-size: 0.97rem; line-height: 1.75; color: var(--text-muted); margin-bott
 <div class="deco deco-1"></div>
 <div class="deco deco-2"></div>
 <div class="deco deco-3"></div>
+
+<!-- Cookies flottants en fond -->
+<div class="cookie-bg" id="cookie-bg"></div>
 <div class="confetti-wrap" id="cw"></div>
 
 <!-- ══════════════════════════════════════
      ACCUEIL
 ══════════════════════════════════════ -->
 <div class="screen active" id="s-welcome">
-  <div class="boubous">
-    <div class="bb bb1">B</div>
-    <span class="bb-heart">♥</span>
-    <div class="bb bb2">B</div>
-    <span class="bb-label">Sur la trace des Boubous</span>
+  <div class="mascot">
+    <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="18" cy="20" r="13" fill="#f2a4a4"/>
+      <circle cx="8" cy="10" r="6" fill="#f2a4a4"/><circle cx="28" cy="10" r="6" fill="#f2a4a4"/>
+      <circle cx="8" cy="10" r="4" fill="#fde8e8"/><circle cx="28" cy="10" r="4" fill="#fde8e8"/>
+      <ellipse cx="18" cy="22" rx="6" ry="4" fill="#d97070" opacity="0.4"/>
+      <circle cx="14" cy="18" r="2" fill="#3d2010"/><circle cx="22" cy="18" r="2" fill="#3d2010"/>
+      <circle cx="14.7" cy="17.3" r="0.7" fill="white"/><circle cx="22.7" cy="17.3" r="0.7" fill="white"/>
+      <ellipse cx="18" cy="22" rx="3.5" ry="2.5" fill="#c96a3a" opacity="0.7"/>
+      <path d="M15 24.5 Q18 26.5 21 24.5" stroke="#3d2010" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+    </svg>
+    <span class="koala-heart">♥</span>
+    <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="18" cy="20" r="13" fill="#f5e0d3"/>
+      <circle cx="8" cy="10" r="6" fill="#f5e0d3"/><circle cx="28" cy="10" r="6" fill="#f5e0d3"/>
+      <circle cx="8" cy="10" r="4" fill="#fff9f3"/><circle cx="28" cy="10" r="4" fill="#fff9f3"/>
+      <ellipse cx="18" cy="22" rx="6" ry="4" fill="#c96a3a" opacity="0.35"/>
+      <circle cx="14" cy="18" r="2" fill="#3d2010"/><circle cx="22" cy="18" r="2" fill="#3d2010"/>
+      <circle cx="14.7" cy="17.3" r="0.7" fill="white"/><circle cx="22.7" cy="17.3" r="0.7" fill="white"/>
+      <ellipse cx="18" cy="22" rx="3.5" ry="2.5" fill="#c96a3a" opacity="0.7"/>
+      <path d="M15 24.5 Q18 26.5 21 24.5" stroke="#3d2010" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+    </svg>
+    <span class="mascot-label">Sur la trace des Boubous</span>
   </div>
   <h1>Bienvenue dans le jeu des <em>Boubous</em>&nbsp;!</h1>
   <p>Plusieurs indices se cachent dans des lieux que tu connais bien. À chaque étape, rends-toi sur le lieu indiqué et résous l'énigme sur place.</p>
@@ -235,15 +250,15 @@ p { font-size: 0.97rem; line-height: 1.75; color: var(--text-muted); margin-bott
 ══════════════════════════════════════ -->
 <div class="screen" id="s-tuto">
   <div class="center">
-    <div class="check-circle cc-rose">✓</div>
+    <div class="check-circle cc-rose">🍪</div>
     <h1>Bravo, c'est bien toi&nbsp;!</h1>
     <div class="sep sep-rose"></div>
     <p>Tu as compris comment ça marche. À chaque étape : trouve le lieu, rends-toi y, résous l'énigme sur place — et un mot secret te sera révélé.</p>
     <p>Reconstitue la phrase pour découvrir ce qui t'attend au bout du chemin…</p>
-    <div class="mini-bb">
-      <div class="mbb mbb1">B</div>
-      <span class="mheart">♥</span>
-      <div class="mbb mbb2">B</div>
+    <div class="mini-koalas">
+      <svg width="28" height="28" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="20" r="13" fill="#f2a4a4"/><circle cx="8" cy="10" r="6" fill="#f2a4a4"/><circle cx="28" cy="10" r="6" fill="#f2a4a4"/><circle cx="8" cy="10" r="4" fill="#fde8e8"/><circle cx="28" cy="10" r="4" fill="#fde8e8"/><circle cx="14" cy="18" r="2" fill="#3d2010"/><circle cx="22" cy="18" r="2" fill="#3d2010"/><circle cx="14.7" cy="17.3" r="0.7" fill="white"/><circle cx="22.7" cy="17.3" r="0.7" fill="white"/><ellipse cx="18" cy="22" rx="3.5" ry="2.5" fill="#c96a3a" opacity="0.7"/><path d="M15 24.5 Q18 26.5 21 24.5" stroke="#3d2010" stroke-width="1.2" stroke-linecap="round" fill="none"/></svg>
+      <span style="font-size:1rem;color:var(--rose-deep);animation:hb 1.8s ease-in-out infinite;display:inline-block;">♥</span>
+      <svg width="28" height="28" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="20" r="13" fill="#f5e0d3"/><circle cx="8" cy="10" r="6" fill="#f5e0d3"/><circle cx="28" cy="10" r="6" fill="#f5e0d3"/><circle cx="8" cy="10" r="4" fill="#fff9f3"/><circle cx="28" cy="10" r="4" fill="#fff9f3"/><circle cx="14" cy="18" r="2" fill="#3d2010"/><circle cx="22" cy="18" r="2" fill="#3d2010"/><circle cx="14.7" cy="17.3" r="0.7" fill="white"/><circle cx="22.7" cy="17.3" r="0.7" fill="white"/><ellipse cx="18" cy="22" rx="3.5" ry="2.5" fill="#c96a3a" opacity="0.7"/><path d="M15 24.5 Q18 26.5 21 24.5" stroke="#3d2010" stroke-width="1.2" stroke-linecap="round" fill="none"/></svg>
     </div>
     <button class="btn btn-sm" onclick="showS('sg0')">C'est parti ! →</button>
   </div>
@@ -259,20 +274,19 @@ p { font-size: 0.97rem; line-height: 1.75; color: var(--text-muted); margin-bott
 ══════════════════════════════════════ -->
 <div class="screen" id="s-final">
   <div class="center">
-    <div class="big-bb">
-      <div class="bbb bbb1">B</div>
+    <div class="big-koalas">
+      <svg width="52" height="52" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="20" r="13" fill="#f2a4a4"/><circle cx="8" cy="10" r="6" fill="#f2a4a4"/><circle cx="28" cy="10" r="6" fill="#f2a4a4"/><circle cx="8" cy="10" r="4" fill="#fde8e8"/><circle cx="28" cy="10" r="4" fill="#fde8e8"/><ellipse cx="18" cy="22" rx="6" ry="4" fill="#d97070" opacity="0.4"/><circle cx="14" cy="18" r="2" fill="#3d2010"/><circle cx="22" cy="18" r="2" fill="#3d2010"/><circle cx="14.7" cy="17.3" r="0.7" fill="white"/><circle cx="22.7" cy="17.3" r="0.7" fill="white"/><ellipse cx="18" cy="22" rx="3.5" ry="2.5" fill="#c96a3a" opacity="0.7"/><path d="M15 24.5 Q18 26.5 21 24.5" stroke="#3d2010" stroke-width="1.2" stroke-linecap="round" fill="none"/></svg>
       <span class="big-heart">♥</span>
-      <div class="bbb bbb2">B</div>
+      <svg width="52" height="52" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="20" r="13" fill="#f5e0d3"/><circle cx="8" cy="10" r="6" fill="#f5e0d3"/><circle cx="28" cy="10" r="6" fill="#f5e0d3"/><circle cx="8" cy="10" r="4" fill="#fff9f3"/><circle cx="28" cy="10" r="4" fill="#fff9f3"/><ellipse cx="18" cy="22" rx="6" ry="4" fill="#c96a3a" opacity="0.35"/><circle cx="14" cy="18" r="2" fill="#3d2010"/><circle cx="22" cy="18" r="2" fill="#3d2010"/><circle cx="14.7" cy="17.3" r="0.7" fill="white"/><circle cx="22.7" cy="17.3" r="0.7" fill="white"/><ellipse cx="18" cy="22" rx="3.5" ry="2.5" fill="#c96a3a" opacity="0.7"/><path d="M15 24.5 Q18 26.5 21 24.5" stroke="#3d2010" stroke-width="1.2" stroke-linecap="round" fill="none"/></svg>
     </div>
     <h1>Tu as tout trouvé&nbsp;!</h1>
     <div class="sep sep-rose"></div>
     <p>La phrase mystérieuse était…</p>
-    <div class="final-phrase">
-      <div class="fp-words" id="fp-words"></div>
-    </div>
-    <p style="font-family:'Fraunces',serif;font-style:italic;font-size:1.1rem;color:var(--terra);margin-top:1rem;line-height:1.5;">
-      Rends-toi au Passage du Jeu de Boules.<br>Je t'y attends.
+    <div class="fp-words" id="fp-words"></div>
+    <p style="font-family:'Fraunces',serif;font-style:italic;font-size:1.1rem;color:var(--terra);margin-top:1.2rem;line-height:1.6;">
+      Rends-toi au Passage du Jeu de Boules.<br>Je t'y attends pour la suite.
     </p>
+    <p style="font-size:0.85rem;margin-top:0.5rem;">La phrase n'est pas encore complète… 🍪</p>
   </div>
 </div>
 
@@ -280,7 +294,7 @@ p { font-size: 0.97rem; line-height: 1.75; color: var(--text-muted); margin-bott
 // ══════════════════════════════════════════════════
 // DONNÉES
 // ══════════════════════════════════════════════════
-const PHRASE = ["Veux", "tu", "m'épouser", "?"];
+const PHRASE = ["Mon amour,", "Veux", "tu", "..."];
 
 const STEPS = [
   {
@@ -290,18 +304,35 @@ const STEPS = [
     locationEmoji: "🍽️",
     onsiteChallenge: "Hippolyte Zabukovec est ostéo juste à côté d'un salon qui s'appelle Coiffure et Tendance. Si Hippolyte voulait se faire coiffer un samedi, jusqu'à quelle heure pourrait-il se faire coiffer ?",
     onsiteAccepted: ["18h","18h00","18 h","18:00","18","6h","6h du soir","jusqu a 18h","jusqu a 18h00"],
+    hints: [],
     wordIndex: 0,
     successMsg: "Notre tout premier dîner ensemble. Tu t'en souviens ?"
   },
   {
-    locationHint: "Rends-toi Place de la Réunion.",
+    locationHint: "Tu te souviens de cet immeuble ? Face à la façade, pars sur ta gauche. Dépasse le parfum des épices, et continue jusqu'à la prochaine vitrine. Cherche le code qu'on compose quand quelque chose ne tourne plus rond.",
     locationAccepted: ["cure","la cure","place de la reunion","place reunion","la reunion","place de reunion"],
     locationName: "Place de la Réunion",
     locationEmoji: "🏡",
-    onsiteChallenge: "[DÉFI SUR PLACE À DÉFINIR]",
-    onsiteAccepted: ["cure"],
+    onsiteChallenge: "Dans cette laverie, les indices se cachent sur plusieurs affiches — il va falloir être attentive. Le code à entrer est un nombre à 4 chiffres. Les deux premiers chiffres : la durée en minutes d'un cycle couleur à 60°. Les deux derniers : note uniquement les 2 derniers chiffres du numéro d'urgence affiché sur la vitrine.",
+    onsiteAccepted: ["5058"],
+    hints: [],
     wordIndex: 1,
     successMsg: "La cure… tu y venais si souvent au début. Ce petit appart avait quelque chose de magique."
+  },
+  {
+    locationHint: "Rends-toi au Laia.",
+    locationAccepted: ["laia","le laia","restaurant laia","laia restaurant"],
+    locationName: "Laia",
+    locationEmoji: "🌿",
+    onsiteChallenge: "Dans cette cour que tu connais bien — celle où on sue et où on mange — trois choses se cachent et partagent le même secret.",
+    onsiteAccepted: ["26"],
+    hints: [
+      "Avant même d'entrer, la réponse t'accueille déjà. Regarde bien.",
+      "Deux choses dans cette cour partagent ce même nombre. Cherche ce qui se compte.",
+      "Du côté des deux-roues, regarde bien — les pots comme les places ont leur mot à dire."
+    ],
+    wordIndex: 2,
+    successMsg: "Ce resto qu'on aime tant tous les deux… certains souvenirs ont bon goût."
   },
   {
     locationHint: "Rends-toi à L'Autobus.",
@@ -310,23 +341,57 @@ const STEPS = [
     locationEmoji: "🚌",
     onsiteChallenge: "[DÉFI SUR PLACE À DÉFINIR]",
     onsiteAccepted: ["autobus"],
-    wordIndex: 2,
-    successMsg: "Ce soir à l'improviste… tu es venue sans prévenir, et c'était parfait."
-  },
-  {
-    locationHint: "Rends-toi à L'Échiquier.",
-    locationAccepted: ["echiquier","l echiquier","lechiquier","restaurant echiquier","restaurant l echiquier"],
-    locationName: "L'Échiquier",
-    locationEmoji: "♟️",
-    onsiteChallenge: "[DÉFI SUR PLACE À DÉFINIR]",
-    onsiteAccepted: ["echiquier"],
+    hints: [],
     wordIndex: 3,
     successMsg: null
   }
 ];
 
 const TOTAL = STEPS.length;
-let collectedWords = []; // mots révélés dans l'ordre de découverte
+let collectedWords = [];
+let hintState = {}; // hintState[i] = nombre d'indices débloqués
+
+// ══════════════════════════════════════════════════
+// COOKIES FLOTTANTS
+// ══════════════════════════════════════════════════
+function initCookies() {
+  const bg = document.getElementById('cookie-bg');
+  for (let i = 0; i < 12; i++) {
+    const c = document.createElement('div');
+    c.className = 'cookie-float';
+    c.textContent = '🍪';
+    c.style.cssText = `
+      left: ${Math.random()*100}%;
+      animation-duration: ${12 + Math.random()*16}s;
+      animation-delay: ${-Math.random()*20}s;
+      font-size: ${1 + Math.random()*0.8}rem;
+    `;
+    bg.appendChild(c);
+  }
+}
+initCookies();
+
+// ══════════════════════════════════════════════════
+// KOALA SVG helper
+// ══════════════════════════════════════════════════
+function koalaSVG(color1, color2, size=28) {
+  return `<svg width="${size}" height="${size}" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="18" cy="20" r="13" fill="${color1}"/>
+    <circle cx="8" cy="10" r="6" fill="${color1}"/><circle cx="28" cy="10" r="6" fill="${color1}"/>
+    <circle cx="8" cy="10" r="4" fill="${color2}"/><circle cx="28" cy="10" r="4" fill="${color2}"/>
+    <circle cx="14" cy="18" r="2" fill="#3d2010"/><circle cx="22" cy="18" r="2" fill="#3d2010"/>
+    <circle cx="14.7" cy="17.3" r="0.7" fill="white"/><circle cx="22.7" cy="17.3" r="0.7" fill="white"/>
+    <ellipse cx="18" cy="22" rx="3.5" ry="2.5" fill="#c96a3a" opacity="0.7"/>
+    <path d="M15 24.5 Q18 26.5 21 24.5" stroke="#3d2010" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+  </svg>`;
+}
+
+const miniKoalas = `
+  <div class="mini-koalas">
+    ${koalaSVG('#f2a4a4','#fde8e8',26)}
+    <span style="font-size:1rem;color:var(--rose-deep);animation:hb 1.8s ease-in-out infinite;display:inline-block;">♥</span>
+    ${koalaSVG('#f5e0d3','#fff9f3',26)}
+  </div>`;
 
 // ══════════════════════════════════════════════════
 // GÉNÉRATION DES ÉCRANS
@@ -336,6 +401,7 @@ const sc = document.getElementById('sc');
 STEPS.forEach((step, i) => {
   const num = i + 1;
   const isLast = i === TOTAL - 1;
+  const hasHints = step.hints && step.hints.length > 0;
 
   let prog = '';
   for (let d = 0; d < TOTAL; d++) {
@@ -359,7 +425,7 @@ STEPS.forEach((step, i) => {
       <label>Nom du lieu</label>
       <input type="text" id="ig${i}" placeholder="Entre le nom du lieu…" autocomplete="off" />
       <div class="err" id="eg${i}">Ce n'est pas ça… cherche encore ! 🤔</div>
-      <div class="hint" id="hg${i}"></div>
+      <div class="hint-wrong" id="hg${i}"></div>
     </div>
     <button class="btn" onclick="validateGuess(${i})">Valider →</button>
   `;
@@ -382,6 +448,18 @@ STEPS.forEach((step, i) => {
   sc.appendChild(cd);
 
   // — Phase 2 : Sur place
+  const hintsHTML = hasHints ? `
+    <div class="hints-section">
+      <div class="hint-cards" id="hint-cards-${i}">
+        ${step.hints.map((h, hi) => `<div class="hint-card" id="hc-${i}-${hi}">💡 ${h}</div>`).join('')}
+      </div>
+      <button class="hint-btn" id="hint-btn-${i}" onclick="revealHint(${i})">
+        🍪 Un petit indice ?
+      </button>
+      <div class="hint-counter" id="hint-counter-${i}"></div>
+    </div>
+  ` : '';
+
   const od = document.createElement('div');
   od.className = 'screen'; od.id = `so${i}`;
   od.innerHTML = `
@@ -394,6 +472,7 @@ STEPS.forEach((step, i) => {
       <div class="card-lbl">Énigme sur place</div>
       <p>${step.onsiteChallenge}</p>
     </div>
+    ${hintsHTML}
     <div class="iw">
       <label>Ta réponse</label>
       <input type="text" id="io${i}" placeholder="Entre ta réponse…" autocomplete="off" />
@@ -420,7 +499,8 @@ STEPS.forEach((step, i) => {
         <div class="wr-word">${PHRASE[step.wordIndex]}</div>
       </div>
       <div id="collected-${i}" class="words-collected"></div>
-      <button class="btn btn-sm" onclick="${nextAction}" style="margin-top:0.5rem;">${nextLabel}</button>
+      ${miniKoalas}
+      <button class="btn btn-sm" onclick="${nextAction}" style="margin-top:0.3rem;">${nextLabel}</button>
     </div>
   `;
   sc.appendChild(rd);
@@ -475,17 +555,35 @@ function validateGuess(i) {
   }
 }
 
+function revealHint(i) {
+  if (!hintState[i]) hintState[i] = 0;
+  const hints = STEPS[i].hints;
+  if (hintState[i] >= hints.length) return;
+
+  const card = document.getElementById(`hc-${i}-${hintState[i]}`);
+  if (card) card.classList.add('show');
+  hintState[i]++;
+
+  const counter = document.getElementById(`hint-counter-${i}`);
+  if (counter) counter.textContent = `Indice ${hintState[i]} sur ${hints.length} utilisé${hintState[i]>1?'s':''}`;
+
+  const btn = document.getElementById(`hint-btn-${i}`);
+  if (btn && hintState[i] >= hints.length) {
+    btn.disabled = true;
+    btn.textContent = 'Plus d\'indices disponibles';
+  }
+}
+
 function validateOnsite(i) {
   const inp = document.getElementById(`io${i}`);
   const err = document.getElementById(`eo${i}`);
   const v   = norm(inp.value);
   const ok  = STEPS[i].onsiteAccepted.map(norm);
+  const isLast = i === TOTAL - 1;
   if (ok.includes(v)) {
     err.style.display='none';
-    // Ajoute le mot à la collection
     collectedWords.push(PHRASE[STEPS[i].wordIndex]);
     confetti();
-    // Affiche la collection sous le mot révélé
     const col = document.getElementById(`collected-${i}`);
     if (col && collectedWords.length > 1) {
       col.innerHTML = `<p style="font-size:0.78rem;color:var(--text-muted);margin-bottom:0.5rem;width:100%;">Tes mots jusqu'ici :</p>`
@@ -499,32 +597,32 @@ function validateOnsite(i) {
 }
 
 function showFinal() {
-  // Anime l'apparition des mots un par un
   const fpw = document.getElementById('fp-words');
   fpw.innerHTML = PHRASE.map(w => `<span class="fp-word">${w}</span>`).join('');
   confetti(); confetti();
   showS('s-final');
-  // Déclenche l'animation mot par mot
   const words = fpw.querySelectorAll('.fp-word');
   words.forEach((w, idx) => {
     setTimeout(() => {
       w.classList.add('show');
-      if (idx === words.length - 1) { setTimeout(confetti, 100); }
-    }, 300 + idx * 350);
+      if (idx === words.length - 1) setTimeout(confetti, 100);
+    }, 300 + idx * 380);
   });
 }
 
 // ══════════════════════════════════════════════════
-// CONFETTI
+// CONFETTI (avec cookies !)
 // ══════════════════════════════════════════════════
 function confetti() {
   const colors = ['#f2a4a4','#d97070','#d4a24c','#c96a3a','#f5e0d3','#fde8e8','#fff0c0'];
   const cw = document.getElementById('cw');
-  for (let n = 0; n < 52; n++) {
+  for (let n = 0; n < 50; n++) {
     const p = document.createElement('div');
     p.className = 'cp';
-    const size = 6 + Math.random()*7;
-    p.style.cssText = `left:${Math.random()*100}%;width:${size}px;height:${size}px;background:${colors[Math.floor(Math.random()*colors.length)]};border-radius:${Math.random()>.5?'50%':'2px'};animation-duration:${1.3+Math.random()*1.2}s;animation-delay:${Math.random()*.35}s;opacity:${0.7+Math.random()*.3};`;
+    const isCookie = Math.random() > 0.75;
+    const size = isCookie ? 16 : (6 + Math.random()*7);
+    p.style.cssText = `left:${Math.random()*100}%;width:${size}px;height:${size}px;${isCookie ? 'font-size:14px;background:transparent;' : `background:${colors[Math.floor(Math.random()*colors.length)]};`}border-radius:${isCookie ? '0' : (Math.random()>.5?'50%':'2px')};animation-duration:${1.3+Math.random()*1.2}s;animation-delay:${Math.random()*.35}s;opacity:${0.7+Math.random()*.3};`;
+    if (isCookie) p.textContent = '🍪';
     cw.appendChild(p);
     setTimeout(()=>p.remove(), 2600);
   }
@@ -536,7 +634,7 @@ function confetti() {
 document.addEventListener('keydown', e => {
   if (e.key !== 'Enter') return;
   const active = document.querySelector('.screen.active');
-  if (active) { const btn = active.querySelector('.btn'); if(btn) btn.click(); }
+  if (active) { const btn = active.querySelector('.btn:not(.hint-btn)'); if(btn) btn.click(); }
 });
 </script>
 </body>
