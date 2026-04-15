@@ -458,6 +458,7 @@ STEPS.forEach(function(step, i) {
     '<div class="err" id="eg' + i + '">Ce n\'est pas ça… cherche encore ! 🤔</div>' +
     '<div class="hint-wrong" id="hg' + i + '"></div></div>' +
     '<button class="btn" onclick="validateGuess(' + i + ')">Valider →</button>';
+  sc.appendChild(gd);
 
   var cd = document.createElement('div');
   cd.className = 'screen'; cd.id = 'sc' + i;
