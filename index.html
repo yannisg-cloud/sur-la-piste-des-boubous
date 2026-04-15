@@ -537,7 +537,7 @@ document.getElementById('sc').addEventListener('click', function(e) {
 });
 
 function norm(s) {
-  return s.trim().toLowerÇase()
+  return s.trim().toLowerCase()
     .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
     .replace(/[\'']/g,'').replace(/[-_]/g,' ').replace(/\s+/g,' ');
 }
