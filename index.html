@@ -187,9 +187,197 @@ p { font-size: 0.97rem; line-height: 1.7; color: var(--text-mid); margin-bottom:
 .confetti-wrap { position: fixed; top: 0; left: 0; right: 0; pointer-events: none; z-index: 999; overflow: hidden; height: 100vh; }
 .cp { position: absolute; top: -10px; animation: cfall linear forwards; }
 @keyframes cfall { to { transform: translateY(110vh) rotate(720deg); opacity: 0; } }
+
+/* ===== INTRO ANIMATION ===== */
+#intro-overlay {
+  position: fixed; inset: 0; z-index: 9999;
+  background: var(--brown);
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+  animation: introFadeOut 0.6s ease-in 4.2s forwards;
+}
+@keyframes introFadeOut { to { opacity: 0; visibility: hidden; pointer-events: none; } }
+
+/* Rideau de théâtre */
+.curtain {
+  position: absolute; top: 0; bottom: 0; width: 52%;
+  background: linear-gradient(90deg, #8B1E2E 0%, #C9452A 30%, #E8607A 50%, #C9452A 70%, #8B1E2E 100%);
+  background-size: 40px 100%;
+  background-image:
+    repeating-linear-gradient(90deg,
+      rgba(0,0,0,0.3) 0px, rgba(0,0,0,0.3) 2px,
+      transparent 2px, transparent 20px,
+      rgba(255,255,255,0.08) 20px, rgba(255,255,255,0.08) 22px,
+      transparent 22px, transparent 40px),
+    linear-gradient(90deg, #8B1E2E 0%, #C9452A 30%, #E8607A 50%, #C9452A 70%, #8B1E2E 100%);
+  box-shadow: 0 0 60px rgba(0,0,0,0.6) inset;
+  z-index: 2;
+}
+.curtain-left { left: 0; animation: curtainOpenLeft 1.2s cubic-bezier(0.77,0,0.175,1) 1.4s forwards; }
+.curtain-right { right: 0; animation: curtainOpenRight 1.2s cubic-bezier(0.77,0,0.175,1) 1.4s forwards; }
+.curtain-left::after, .curtain-right::after {
+  content: ''; position: absolute; top: 0; bottom: 0; width: 30px;
+  background: linear-gradient(90deg, rgba(0,0,0,0.5), transparent);
+}
+.curtain-left::after { right: 0; }
+.curtain-right::after { left: 0; background: linear-gradient(270deg, rgba(0,0,0,0.5), transparent); }
+@keyframes curtainOpenLeft { to { transform: translateX(-105%); } }
+@keyframes curtainOpenRight { to { transform: translateX(105%); } }
+
+/* Barre dorée en haut du rideau */
+.curtain-top {
+  position: absolute; top: 0; left: 0; right: 0; height: 30px;
+  background: linear-gradient(180deg, #E8C84A 0%, #B8941A 100%);
+  border-bottom: 3px solid var(--brown);
+  z-index: 3;
+  animation: curtainTopUp 0.8s ease-in 1.8s forwards;
+}
+@keyframes curtainTopUp { to { transform: translateY(-100%); } }
+
+/* Scène — fond lumineux */
+.intro-stage {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse at center, rgba(232,200,74,0.35) 0%, transparent 60%),
+    var(--cream);
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column;
+  z-index: 1;
+}
+
+/* Spotlight balayant */
+.spotlight {
+  position: absolute; top: -20%; left: 50%;
+  width: 400px; height: 140%;
+  background: linear-gradient(180deg, rgba(255,240,180,0.6) 0%, rgba(255,240,180,0) 100%);
+  transform-origin: top center;
+  transform: translateX(-50%) rotate(-25deg);
+  animation: spotlightSweep 2.5s ease-in-out 2.4s;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+@keyframes spotlightSweep {
+  0% { transform: translateX(-50%) rotate(-25deg); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: translateX(-50%) rotate(25deg); opacity: 1; }
+}
+
+/* Koalas qui bondissent */
+.intro-koalas {
+  display: flex; gap: 1.5rem; align-items: center;
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  animation: koalaPop 0.8s cubic-bezier(0.175,0.885,0.32,1.275) 2.6s forwards;
+}
+.intro-koala {
+  font-size: 5rem;
+  filter: drop-shadow(4px 4px 0 var(--brown));
+  display: inline-block;
+}
+.intro-koala.k1 { animation: bounce 0.6s ease-in-out 3.2s 2 alternate; }
+.intro-heart {
+  font-size: 3.5rem; color: var(--pink);
+  filter: drop-shadow(3px 3px 0 var(--brown));
+  animation: heartbeat 0.7s ease-in-out 3.2s infinite;
+}
+.intro-koala.k2 { animation: bounce 0.6s ease-in-out 3.2s 2 alternate; animation-delay: 3.3s; }
+@keyframes koalaPop {
+  0% { opacity: 0; transform: scale(0) rotate(-180deg); }
+  70% { transform: scale(1.2) rotate(10deg); }
+  100% { opacity: 1; transform: scale(1) rotate(0); }
+}
+@keyframes bounce {
+  from { transform: translateY(0); }
+  to { transform: translateY(-15px); }
+}
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.25); }
+}
+
+/* Titre qui claque */
+.intro-title {
+  font-family: 'Dela Gothic One', sans-serif;
+  font-size: clamp(1.6rem, 6vw, 2.6rem);
+  color: var(--rust);
+  text-align: center;
+  line-height: 1.1;
+  letter-spacing: 0.02em;
+  text-shadow: 4px 4px 0 var(--brown);
+  opacity: 0;
+  animation: titleSlam 0.5s cubic-bezier(0.175,0.885,0.32,1.275) 2.9s forwards;
+  padding: 0 1rem;
+}
+.intro-sub {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 800;
+  font-size: clamp(0.9rem, 3vw, 1.1rem);
+  color: var(--brown);
+  margin-top: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  opacity: 0;
+  animation: fadeInUp 0.6s ease-out 3.3s forwards;
+}
+@keyframes titleSlam {
+  0% { opacity: 0; transform: scale(3) rotate(-8deg); }
+  60% { transform: scale(0.85) rotate(2deg); }
+  100% { opacity: 1; transform: scale(1) rotate(0); }
+}
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Étincelles */
+.intro-sparkle {
+  position: absolute;
+  font-size: 2rem;
+  animation: sparkleFloat 2s ease-out forwards;
+  pointer-events: none;
+}
+@keyframes sparkleFloat {
+  0% { opacity: 0; transform: scale(0) rotate(0); }
+  30% { opacity: 1; transform: scale(1.2) rotate(180deg); }
+  100% { opacity: 0; transform: scale(0.5) translateY(-80px) rotate(360deg); }
+}
+
+/* Confettis festifs */
+.intro-confetti {
+  position: absolute; top: -20px;
+  width: 12px; height: 16px;
+  animation: introCfall linear forwards;
+  pointer-events: none;
+}
+@keyframes introCfall {
+  0% { transform: translateY(0) rotate(0); opacity: 1; }
+  100% { transform: translateY(110vh) rotate(1080deg); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #intro-overlay { animation-delay: 0.3s; animation-duration: 0.3s; }
+  .curtain-left, .curtain-right, .curtain-top { animation: none; display: none; }
+}
 </style>
 </head>
 <body>
+
+<!-- INTRO ANIMATION -->
+<div id="intro-overlay">
+  <div class="intro-stage">
+    <div class="spotlight"></div>
+    <div class="intro-koalas">
+      <span class="intro-koala k1">🐨</span>
+      <span class="intro-heart">♥</span>
+      <span class="intro-koala k2">🐨</span>
+    </div>
+    <div class="intro-title">Les Boubous<br>entrent en scène !</div>
+    <div class="intro-sub">✨ Ça commence maintenant ✨</div>
+  </div>
+  <div class="curtain curtain-left"></div>
+  <div class="curtain curtain-right"></div>
+  <div class="curtain-top"></div>
+</div>
 
 <div class="shape shape-1"></div>
 <div class="shape shape-2"></div>
@@ -724,6 +912,58 @@ document.addEventListener('keydown', function(e) {
   var active = document.querySelector('.screen.active');
   if (active) { var btn = active.querySelector('.btn:not(.back-btn):not(.sos-btn)'); if(btn) btn.click(); }
 });
+
+/* ===== INTRO ANIMATION ===== */
+(function() {
+  var overlay = document.getElementById('intro-overlay');
+  if (!overlay) return;
+
+  // Confettis festifs après ouverture du rideau
+  var colors = ['#E8C84A','#E8607A','#7A9E4E','#D45C2A','#3A8C7E','#FAF3E0'];
+  function launchIntroConfetti() {
+    var stage = overlay.querySelector('.intro-stage');
+    for (var i = 0; i < 80; i++) {
+      var c = document.createElement('div');
+      c.className = 'intro-confetti';
+      c.style.left = Math.random() * 100 + 'vw';
+      c.style.background = colors[Math.floor(Math.random() * colors.length)];
+      c.style.animationDuration = (2 + Math.random() * 1.5) + 's';
+      c.style.animationDelay = (Math.random() * 0.8) + 's';
+      if (Math.random() > 0.5) c.style.borderRadius = '50%';
+      stage.appendChild(c);
+    }
+  }
+
+  // Étincelles autour des koalas
+  function launchSparkles() {
+    var stage = overlay.querySelector('.intro-stage');
+    var emojis = ['✨','⭐','💫','🌟','🎉','🎊'];
+    for (var i = 0; i < 18; i++) {
+      var s = document.createElement('div');
+      s.className = 'intro-sparkle';
+      s.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      s.style.left = (20 + Math.random() * 60) + '%';
+      s.style.top = (25 + Math.random() * 50) + '%';
+      s.style.animationDelay = (Math.random() * 1.2) + 's';
+      stage.appendChild(s);
+    }
+  }
+
+  // Déclenchement séquencé
+  setTimeout(launchIntroConfetti, 2400);  // rideau ouvert
+  setTimeout(launchSparkles, 2700);
+
+  // Nettoyage complet après l'animation
+  setTimeout(function() {
+    if (overlay && overlay.parentNode) overlay.parentNode.removeChild(overlay);
+  }, 5200);
+
+  // Skip au clic/touche
+  overlay.addEventListener('click', function() {
+    overlay.style.animation = 'introFadeOut 0.3s ease-in forwards';
+    setTimeout(function(){ if (overlay.parentNode) overlay.parentNode.removeChild(overlay); }, 400);
+  });
+})();
 </script>
 </body>
 </html>
