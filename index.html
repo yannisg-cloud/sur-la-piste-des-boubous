@@ -390,7 +390,7 @@ p { font-size: 0.97rem; line-height: 1.7; color: var(--text-mid); margin-bottom:
 <div class="modal-overlay" id="hint-modal">
   <div class="modal-box">
     <div style="font-size:1.8rem;margin-bottom:0.8rem;">🍪</div>
-    <p>Holà, déjà ? Les bons Boubous cherchent par eux-mêmes… Mais si tu es vraiment bloquée, je peux t'aider !</p>
+    <p>Holà, déjà ? Les Boubous cherchent par eux-mêmes… Mais si tu es vraiment bloquée, je peux t'aider !</p>
     <div class="modal-btns">
       <button class="modal-btn-yes" onclick="confirmHint()">Oui, donne-moi l'indice</button>
       <button class="modal-btn-no" onclick="closeModal()">Non, je cherche encore !</button>
@@ -479,10 +479,10 @@ const STEPS = [
     onsiteChallénge: "Ce bistrot a des voisins discrets. L'un répare les corps, mais a plié bagage. Sa trace est encore la — où est-il allé ?",
     onsiteAccepted: ["13 avenue parmentier","avenue parmentier","parmentier","13 avenue parmentier 75011","13 avenue parmentier paris","13"],
     onsiteChallénge2: "Si Hippolyte voulait se faire coiffer un samedi, jusqu'a quelle heure pourrait-il le faire ?",
-    onsiteAccepted2: ["18h","18h00","18 h","18:00","18","6h","6h du soir","jusqu a 18h","jusqu a 18h00"],
+    onsiteAccepted2: ["18h","18h00","18 h","18:00","18","18 heures","6h","6h du soir","jusqu a 18h","jusqu a 18h00"],
     hints: [],
     wordIndex: 0,
-    successMsg: "Un de nos premiers tetes-a-tete. Tu t'en souviens ?"
+    successMsg: "Un de nos premiers tête-à-tête. Tu t'en souviens ?"
   },
   {
     locationHint: "On y va pour se ressourcer, pour se remettre d'aplomb.",
@@ -521,7 +521,7 @@ const STEPS = [
     successMsg: "Ce resto qu'on aime tant tous les deux… certains souvenirs ont bon gout."
   },
   {
-    locationHint: "C'était un soir de semaine, il était tard. On n'était pas encore vraiment nous — et pourtant tu m'as proposé un verre. On a dit oui sans hesiter.",
+    locationHint: "C'était un soir de semaine, il était tard. On n'était pas encore vraiment nous. Et pourtant tu m'as proposé un verre. Nous nous y sommes retrouvé, sans hésiter.",
     locationHints: [
       "Cet endroit porte le nom d'un moyen de transport en commun.",
       "Il ne roule pas sur des rails, il ne vole pas. On le prend tous les jours a Paris."
@@ -636,16 +636,15 @@ STEPS.forEach(function(step, i) {
   gd.innerHTML = '<div class="progress">' + prog + '</div>' +
     '<div class="step-lbl">Étape ' + num + ' sur ' + TOTAL + ' · Trouve le lieu</div>' +
     '<span class="badge badge-guess">🔍 Quelle est la destination ? ?</span>' +
-    '<h1>Où dois-tu allér ?</h1>' +
+    '<h1>Où dois-tu aller ?</h1>' +
     '<div class="card"><div class="card-lbl">Indice</div><p>' + step.locationHint + '</p></div>' +
     locHintsHTML +
-    '<div class="iw"><label>Nom du lieu</label>' +
-    '<button class="sos-btn" onclick="document.getElementById(\'sos-modal\').classList.add(\'show\')">Je ne trouve vraiment pas…</button>' +
     '<div class="iw"><label>Nom du lieu</label>' +
     '<input type="text" id="ig' + i + '" placeholder="Entre le nom du lieu…" autocomplete="off" />' +
     '<div class="err" id="eg' + i + '">Ce n\'est pas ça… cherche encore ! 🤔</div>' +
     '<div class="hint-wrong" id="hg' + i + '"></div></div>' +
-    '<button class="btn" onclick="validateGuess(' + i + ')">Valider →</button>';
+    '<button class="btn" onclick="validateGuess(' + i + ')">Valider →</button>' +
+    '<button class="sos-btn" onclick="document.getElementById(\'sos-modal\').classList.add(\'show\')">Je ne trouve vraiment pas…</button>';
   sc.appendChild(gd);
 
   var cd = document.createElement('div');
